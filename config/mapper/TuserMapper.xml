@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TuserMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tuser" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="LoginName" property="loginname" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="UserRoleID" property="userroleid" jdbcType="INTEGER" />
+    <result column="Gender" property="gender" jdbcType="TINYINT" />
+    <result column="LoginTime" property="logintime" jdbcType="TIMESTAMP" />
+    <result column="LastLoginTime" property="lastlogintime" jdbcType="TIMESTAMP" />
+    <result column="LastSetPasswordTime" property="lastsetpasswordtime" jdbcType="TIMESTAMP" />
+    <result column="LastResetPasswordTime" property="lastresetpasswordtime" jdbcType="TIMESTAMP" />
+    <result column="PasswordAttemptCount" property="passwordattemptcount" jdbcType="TINYINT" />
+    <result column="Locked" property="locked" jdbcType="TINYINT" />
+    <result column="UserState" property="userstate" jdbcType="SMALLINT" />
+    <result column="RegisterTime" property="registertime" jdbcType="TIMESTAMP" />
+    <result column="ApprovedTime" property="approvedtime" jdbcType="TIMESTAMP" />
+    <result column="FirstName" property="firstname" jdbcType="VARCHAR" />
+    <result column="LastName" property="lastname" jdbcType="VARCHAR" />
+    <result column="UserIdentify" property="useridentify" jdbcType="VARCHAR" />
+    <result column="Email1" property="email1" jdbcType="VARCHAR" />
+    <result column="Email2" property="email2" jdbcType="VARCHAR" />
+    <result column="MobilePhone1" property="mobilephone1" jdbcType="VARCHAR" />
+    <result column="MobilePhone2" property="mobilephone2" jdbcType="VARCHAR" />
+    <result column="Telephone1" property="telephone1" jdbcType="VARCHAR" />
+    <result column="Telephone2" property="telephone2" jdbcType="VARCHAR" />
+    <result column="CardID" property="cardid" jdbcType="INTEGER" />
+    <result column="LastSetCardIDTime" property="lastsetcardidtime" jdbcType="TIMESTAMP" />
+    <result column="UsedCardID1" property="usedcardid1" jdbcType="INTEGER" />
+    <result column="UsedCardID2" property="usedcardid2" jdbcType="INTEGER" />
+    <result column="UsedCardID3" property="usedcardid3" jdbcType="INTEGER" />
+    <result column="PI" property="pi" jdbcType="TINYINT" />
+    <result column="Position" property="position" jdbcType="SMALLINT" />
+    <result column="AttritionType" property="attritiontype" jdbcType="SMALLINT" />
+    <result column="Photo" property="photo" jdbcType="VARCHAR" />
+    <result column="ActivedAccount" property="activedaccount" jdbcType="INTEGER" />
+    <result column="RelatedUserID" property="relateduserid" jdbcType="INTEGER" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="ExpireOfBlack" property="expireofblack" jdbcType="TIMESTAMP" />
+    <result column="JID" property="jid" jdbcType="BIGINT" />
+    <result column="Credit" property="credit" jdbcType="SMALLINT" />
+    <result column="WorkOrganization" property="workorganization" jdbcType="VARCHAR" />
+    <result column="ResearchGroup" property="researchgroup" jdbcType="VARCHAR" />
+    <result column="Emailverificationkey" property="emailverificationkey" jdbcType="BIGINT" />
+    <result column="IsEmailVerified" property="isemailverified" jdbcType="BIT" />
+    <result column="PrivateManager" property="privatemanager" jdbcType="TINYINT" />
+    <result column="ykttime" property="ykttime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, LoginName, Password, UserRoleID, Gender, LoginTime, LastLoginTime, LastSetPasswordTime, 
+    LastResetPasswordTime, PasswordAttemptCount, Locked, UserState, RegisterTime, ApprovedTime, 
+    FirstName, LastName, UserIdentify, Email1, Email2, MobilePhone1, MobilePhone2, Telephone1, 
+    Telephone2, CardID, LastSetCardIDTime, UsedCardID1, UsedCardID2, UsedCardID3, PI, 
+    Position, AttritionType, Photo, ActivedAccount, RelatedUserID, Comment, Address, 
+    ExpireOfBlack, JID, Credit, WorkOrganization, ResearchGroup, Emailverificationkey, 
+    IsEmailVerified, PrivateManager, ykttime
+  </sql>
+  <select id="select104" resultMap="BaseResultMap" >
+  <![CDATA[
+	SELECT
+		tuser1.ID AS ID,
+		tuser1.UserState AS UserState,
+		CASE
+	WHEN tuser1.RelatedUserID IS NULL THEN
+		tuser1.FirstName
+	ELSE
+		tuser2.FirstName
+	END AS FirstName,
+	 CASE
+	WHEN tuser1.RelatedUserID IS NULL THEN
+		tuser1.LastName
+	ELSE
+		tuser2.LastName
+	END AS LastName,
+	 CASE
+	WHEN tuser1.RelatedUserID IS NULL THEN
+		tuser1.MobilePhone1
+	ELSE
+		tuser2.MobilePhone1
+	END AS MobilePhone1,
+	 tuser1.CardID AS CardID,
+	 tuser1.ActivedAccount AS ActivedAccount,
+	 CASE
+	WHEN tuser1.RelatedUserID IS NULL THEN
+		UNIX_TIMESTAMP(tuser1.ExpireOfBlack)
+	ELSE
+		UNIX_TIMESTAMP(tuser2.ExpireOfBlack)
+	END AS ExpireOfBlack
+	FROM
+		(
+			SELECT
+				*
+			FROM
+				tuser
+			WHERE
+				tuser.UserState = 104
+		) AS tuser1
+	LEFT JOIN tuser AS tuser2 ON tuser1.RelatedUserID = tuser2.ID
+  ]]>
+  </select>
+  
+  <select id="select311" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <![CDATA[
+	SELECT
+		tuser1.ID AS ID,
+		tuser1.UserState AS UserState,
+		tuser1.FirstName AS FirstName,
+		tuser1.LastName AS LastName,
+		tuser1.MobilePhone1 AS MobilePhone1,
+		tuser1.CardID AS CardID,
+		tuser1.ActivedAccount AS ActivedAccount,
+		UNIX_TIMESTAMP(tuser1.ExpireOfBlack) AS ExpireOfBlack
+	FROM
+		tneedsyndata,
+		tuser AS tuser1
+	WHERE
+		NeedSynDataID = tuser1.ID
+	AND NeedSynDataType = 311
+	AND ApplySynTick >= ReceiveSynTick
+	AND TargetInstrumentID = #{targetInstrumentId}
+  ]]>
+  </select>
+  
+  <select id="select171" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <![CDATA[
+	SELECT
+		UserID,
+		LoginName,
+		FirstName,
+		LastName,
+		Email1
+	FROM
+		(
+			SELECT
+				UserID
+			FROM
+				taccountofuser
+			WHERE
+				(
+					(UseRelationship = 171)
+					AND (AccountID =#{accountId})
+				)
+		) AS tmp_account
+	LEFT JOIN (
+		SELECT
+			tmp1.ID,
+			tmp1.LoginName,
+			CASE
+		WHEN tmp1.RelatedUserID IS NULL THEN
+			tmp1.FirstName
+		ELSE
+			tmp2.FirstName
+		END AS FirstName,
+		CASE
+	WHEN tmp1.RelatedUserID IS NULL THEN
+		tmp1.LastName
+	ELSE
+		tmp2.LastName
+	END AS LastName,
+	 CASE
+	WHEN tmp1.RelatedUserID IS NULL THEN
+		tmp1.Email1
+	ELSE
+		tmp2.Email1
+	END AS Email1
+	FROM
+		tuser AS tmp1
+	LEFT JOIN tuser AS tmp2 ON tmp1.RelatedUserID = tmp2.ID
+	) AS tmp_user ON tmp_account.UserID = tmp_user.ID
+  ]]>
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tuser
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tuser
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tuser" >
+    insert into tuser (ID, LoginName, Password, 
+      UserRoleID, Gender, LoginTime, 
+      LastLoginTime, LastSetPasswordTime, 
+      LastResetPasswordTime, PasswordAttemptCount, 
+      Locked, UserState, RegisterTime, 
+      ApprovedTime, FirstName, LastName, 
+      UserIdentify, Email1, Email2, 
+      MobilePhone1, MobilePhone2, Telephone1, 
+      Telephone2, CardID, LastSetCardIDTime, 
+      UsedCardID1, UsedCardID2, UsedCardID3, 
+      PI, Position, AttritionType, 
+      Photo, ActivedAccount, RelatedUserID, 
+      Comment, Address, ExpireOfBlack, 
+      JID, Credit, WorkOrganization, 
+      ResearchGroup, Emailverificationkey, IsEmailVerified, 
+      PrivateManager, ykttime)
+    values (#{id,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{userroleid,jdbcType=INTEGER}, #{gender,jdbcType=TINYINT}, #{logintime,jdbcType=TIMESTAMP}, 
+      #{lastlogintime,jdbcType=TIMESTAMP}, #{lastsetpasswordtime,jdbcType=TIMESTAMP}, 
+      #{lastresetpasswordtime,jdbcType=TIMESTAMP}, #{passwordattemptcount,jdbcType=TINYINT}, 
+      #{locked,jdbcType=TINYINT}, #{userstate,jdbcType=SMALLINT}, #{registertime,jdbcType=TIMESTAMP}, 
+      #{approvedtime,jdbcType=TIMESTAMP}, #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, 
+      #{useridentify,jdbcType=VARCHAR}, #{email1,jdbcType=VARCHAR}, #{email2,jdbcType=VARCHAR}, 
+      #{mobilephone1,jdbcType=VARCHAR}, #{mobilephone2,jdbcType=VARCHAR}, #{telephone1,jdbcType=VARCHAR}, 
+      #{telephone2,jdbcType=VARCHAR}, #{cardid,jdbcType=INTEGER}, #{lastsetcardidtime,jdbcType=TIMESTAMP}, 
+      #{usedcardid1,jdbcType=INTEGER}, #{usedcardid2,jdbcType=INTEGER}, #{usedcardid3,jdbcType=INTEGER}, 
+      #{pi,jdbcType=TINYINT}, #{position,jdbcType=SMALLINT}, #{attritiontype,jdbcType=SMALLINT}, 
+      #{photo,jdbcType=VARCHAR}, #{activedaccount,jdbcType=INTEGER}, #{relateduserid,jdbcType=INTEGER}, 
+      #{comment,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{expireofblack,jdbcType=TIMESTAMP}, 
+      #{jid,jdbcType=BIGINT}, #{credit,jdbcType=SMALLINT}, #{workorganization,jdbcType=VARCHAR}, 
+      #{researchgroup,jdbcType=VARCHAR}, #{emailverificationkey,jdbcType=BIGINT}, #{isemailverified,jdbcType=BIT}, 
+      #{privatemanager,jdbcType=TINYINT}, #{ykttime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tuser" >
+    insert into tuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="loginname != null" >
+        LoginName,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="userroleid != null" >
+        UserRoleID,
+      </if>
+      <if test="gender != null" >
+        Gender,
+      </if>
+      <if test="logintime != null" >
+        LoginTime,
+      </if>
+      <if test="lastlogintime != null" >
+        LastLoginTime,
+      </if>
+      <if test="lastsetpasswordtime != null" >
+        LastSetPasswordTime,
+      </if>
+      <if test="lastresetpasswordtime != null" >
+        LastResetPasswordTime,
+      </if>
+      <if test="passwordattemptcount != null" >
+        PasswordAttemptCount,
+      </if>
+      <if test="locked != null" >
+        Locked,
+      </if>
+      <if test="userstate != null" >
+        UserState,
+      </if>
+      <if test="registertime != null" >
+        RegisterTime,
+      </if>
+      <if test="approvedtime != null" >
+        ApprovedTime,
+      </if>
+      <if test="firstname != null" >
+        FirstName,
+      </if>
+      <if test="lastname != null" >
+        LastName,
+      </if>
+      <if test="useridentify != null" >
+        UserIdentify,
+      </if>
+      <if test="email1 != null" >
+        Email1,
+      </if>
+      <if test="email2 != null" >
+        Email2,
+      </if>
+      <if test="mobilephone1 != null" >
+        MobilePhone1,
+      </if>
+      <if test="mobilephone2 != null" >
+        MobilePhone2,
+      </if>
+      <if test="telephone1 != null" >
+        Telephone1,
+      </if>
+      <if test="telephone2 != null" >
+        Telephone2,
+      </if>
+      <if test="cardid != null" >
+        CardID,
+      </if>
+      <if test="lastsetcardidtime != null" >
+        LastSetCardIDTime,
+      </if>
+      <if test="usedcardid1 != null" >
+        UsedCardID1,
+      </if>
+      <if test="usedcardid2 != null" >
+        UsedCardID2,
+      </if>
+      <if test="usedcardid3 != null" >
+        UsedCardID3,
+      </if>
+      <if test="pi != null" >
+        PI,
+      </if>
+      <if test="position != null" >
+        Position,
+      </if>
+      <if test="attritiontype != null" >
+        AttritionType,
+      </if>
+      <if test="photo != null" >
+        Photo,
+      </if>
+      <if test="activedaccount != null" >
+        ActivedAccount,
+      </if>
+      <if test="relateduserid != null" >
+        RelatedUserID,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="address != null" >
+        Address,
+      </if>
+      <if test="expireofblack != null" >
+        ExpireOfBlack,
+      </if>
+      <if test="jid != null" >
+        JID,
+      </if>
+      <if test="credit != null" >
+        Credit,
+      </if>
+      <if test="workorganization != null" >
+        WorkOrganization,
+      </if>
+      <if test="researchgroup != null" >
+        ResearchGroup,
+      </if>
+      <if test="emailverificationkey != null" >
+        Emailverificationkey,
+      </if>
+      <if test="isemailverified != null" >
+        IsEmailVerified,
+      </if>
+      <if test="privatemanager != null" >
+        PrivateManager,
+      </if>
+      <if test="ykttime != null" >
+        ykttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userroleid != null" >
+        #{userroleid,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="logintime != null" >
+        #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastsetpasswordtime != null" >
+        #{lastsetpasswordtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastresetpasswordtime != null" >
+        #{lastresetpasswordtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwordattemptcount != null" >
+        #{passwordattemptcount,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=TINYINT},
+      </if>
+      <if test="userstate != null" >
+        #{userstate,jdbcType=SMALLINT},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvedtime != null" >
+        #{approvedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstname != null" >
+        #{firstname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastname != null" >
+        #{lastname,jdbcType=VARCHAR},
+      </if>
+      <if test="useridentify != null" >
+        #{useridentify,jdbcType=VARCHAR},
+      </if>
+      <if test="email1 != null" >
+        #{email1,jdbcType=VARCHAR},
+      </if>
+      <if test="email2 != null" >
+        #{email2,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone1 != null" >
+        #{mobilephone1,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone2 != null" >
+        #{mobilephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone1 != null" >
+        #{telephone1,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone2 != null" >
+        #{telephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="lastsetcardidtime != null" >
+        #{lastsetcardidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usedcardid1 != null" >
+        #{usedcardid1,jdbcType=INTEGER},
+      </if>
+      <if test="usedcardid2 != null" >
+        #{usedcardid2,jdbcType=INTEGER},
+      </if>
+      <if test="usedcardid3 != null" >
+        #{usedcardid3,jdbcType=INTEGER},
+      </if>
+      <if test="pi != null" >
+        #{pi,jdbcType=TINYINT},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=SMALLINT},
+      </if>
+      <if test="attritiontype != null" >
+        #{attritiontype,jdbcType=SMALLINT},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="activedaccount != null" >
+        #{activedaccount,jdbcType=INTEGER},
+      </if>
+      <if test="relateduserid != null" >
+        #{relateduserid,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="expireofblack != null" >
+        #{expireofblack,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jid != null" >
+        #{jid,jdbcType=BIGINT},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=SMALLINT},
+      </if>
+      <if test="workorganization != null" >
+        #{workorganization,jdbcType=VARCHAR},
+      </if>
+      <if test="researchgroup != null" >
+        #{researchgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="emailverificationkey != null" >
+        #{emailverificationkey,jdbcType=BIGINT},
+      </if>
+      <if test="isemailverified != null" >
+        #{isemailverified,jdbcType=BIT},
+      </if>
+      <if test="privatemanager != null" >
+        #{privatemanager,jdbcType=TINYINT},
+      </if>
+      <if test="ykttime != null" >
+        #{ykttime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TuserExample" resultType="java.lang.Integer" >
+    select count(*) from tuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tuser" >
+    update tuser
+    <set >
+      <if test="loginname != null" >
+        LoginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userroleid != null" >
+        UserRoleID = #{userroleid,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        Gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="logintime != null" >
+        LoginTime = #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null" >
+        LastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastsetpasswordtime != null" >
+        LastSetPasswordTime = #{lastsetpasswordtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastresetpasswordtime != null" >
+        LastResetPasswordTime = #{lastresetpasswordtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwordattemptcount != null" >
+        PasswordAttemptCount = #{passwordattemptcount,jdbcType=TINYINT},
+      </if>
+      <if test="locked != null" >
+        Locked = #{locked,jdbcType=TINYINT},
+      </if>
+      <if test="userstate != null" >
+        UserState = #{userstate,jdbcType=SMALLINT},
+      </if>
+      <if test="registertime != null" >
+        RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvedtime != null" >
+        ApprovedTime = #{approvedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstname != null" >
+        FirstName = #{firstname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastname != null" >
+        LastName = #{lastname,jdbcType=VARCHAR},
+      </if>
+      <if test="useridentify != null" >
+        UserIdentify = #{useridentify,jdbcType=VARCHAR},
+      </if>
+      <if test="email1 != null" >
+        Email1 = #{email1,jdbcType=VARCHAR},
+      </if>
+      <if test="email2 != null" >
+        Email2 = #{email2,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone1 != null" >
+        MobilePhone1 = #{mobilephone1,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone2 != null" >
+        MobilePhone2 = #{mobilephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone1 != null" >
+        Telephone1 = #{telephone1,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone2 != null" >
+        Telephone2 = #{telephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null" >
+        CardID = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="lastsetcardidtime != null" >
+        LastSetCardIDTime = #{lastsetcardidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usedcardid1 != null" >
+        UsedCardID1 = #{usedcardid1,jdbcType=INTEGER},
+      </if>
+      <if test="usedcardid2 != null" >
+        UsedCardID2 = #{usedcardid2,jdbcType=INTEGER},
+      </if>
+      <if test="usedcardid3 != null" >
+        UsedCardID3 = #{usedcardid3,jdbcType=INTEGER},
+      </if>
+      <if test="pi != null" >
+        PI = #{pi,jdbcType=TINYINT},
+      </if>
+      <if test="position != null" >
+        Position = #{position,jdbcType=SMALLINT},
+      </if>
+      <if test="attritiontype != null" >
+        AttritionType = #{attritiontype,jdbcType=SMALLINT},
+      </if>
+      <if test="photo != null" >
+        Photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="activedaccount != null" >
+        ActivedAccount = #{activedaccount,jdbcType=INTEGER},
+      </if>
+      <if test="relateduserid != null" >
+        RelatedUserID = #{relateduserid,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="expireofblack != null" >
+        ExpireOfBlack = #{expireofblack,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jid != null" >
+        JID = #{jid,jdbcType=BIGINT},
+      </if>
+      <if test="credit != null" >
+        Credit = #{credit,jdbcType=SMALLINT},
+      </if>
+      <if test="workorganization != null" >
+        WorkOrganization = #{workorganization,jdbcType=VARCHAR},
+      </if>
+      <if test="researchgroup != null" >
+        ResearchGroup = #{researchgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="emailverificationkey != null" >
+        Emailverificationkey = #{emailverificationkey,jdbcType=BIGINT},
+      </if>
+      <if test="isemailverified != null" >
+        IsEmailVerified = #{isemailverified,jdbcType=BIT},
+      </if>
+      <if test="privatemanager != null" >
+        PrivateManager = #{privatemanager,jdbcType=TINYINT},
+      </if>
+      <if test="ykttime != null" >
+        ykttime = #{ykttime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tuser" >
+    update tuser
+    set LoginName = #{loginname,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      UserRoleID = #{userroleid,jdbcType=INTEGER},
+      Gender = #{gender,jdbcType=TINYINT},
+      LoginTime = #{logintime,jdbcType=TIMESTAMP},
+      LastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      LastSetPasswordTime = #{lastsetpasswordtime,jdbcType=TIMESTAMP},
+      LastResetPasswordTime = #{lastresetpasswordtime,jdbcType=TIMESTAMP},
+      PasswordAttemptCount = #{passwordattemptcount,jdbcType=TINYINT},
+      Locked = #{locked,jdbcType=TINYINT},
+      UserState = #{userstate,jdbcType=SMALLINT},
+      RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      ApprovedTime = #{approvedtime,jdbcType=TIMESTAMP},
+      FirstName = #{firstname,jdbcType=VARCHAR},
+      LastName = #{lastname,jdbcType=VARCHAR},
+      UserIdentify = #{useridentify,jdbcType=VARCHAR},
+      Email1 = #{email1,jdbcType=VARCHAR},
+      Email2 = #{email2,jdbcType=VARCHAR},
+      MobilePhone1 = #{mobilephone1,jdbcType=VARCHAR},
+      MobilePhone2 = #{mobilephone2,jdbcType=VARCHAR},
+      Telephone1 = #{telephone1,jdbcType=VARCHAR},
+      Telephone2 = #{telephone2,jdbcType=VARCHAR},
+      CardID = #{cardid,jdbcType=INTEGER},
+      LastSetCardIDTime = #{lastsetcardidtime,jdbcType=TIMESTAMP},
+      UsedCardID1 = #{usedcardid1,jdbcType=INTEGER},
+      UsedCardID2 = #{usedcardid2,jdbcType=INTEGER},
+      UsedCardID3 = #{usedcardid3,jdbcType=INTEGER},
+      PI = #{pi,jdbcType=TINYINT},
+      Position = #{position,jdbcType=SMALLINT},
+      AttritionType = #{attritiontype,jdbcType=SMALLINT},
+      Photo = #{photo,jdbcType=VARCHAR},
+      ActivedAccount = #{activedaccount,jdbcType=INTEGER},
+      RelatedUserID = #{relateduserid,jdbcType=INTEGER},
+      Comment = #{comment,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR},
+      ExpireOfBlack = #{expireofblack,jdbcType=TIMESTAMP},
+      JID = #{jid,jdbcType=BIGINT},
+      Credit = #{credit,jdbcType=SMALLINT},
+      WorkOrganization = #{workorganization,jdbcType=VARCHAR},
+      ResearchGroup = #{researchgroup,jdbcType=VARCHAR},
+      Emailverificationkey = #{emailverificationkey,jdbcType=BIGINT},
+      IsEmailVerified = #{isemailverified,jdbcType=BIT},
+      PrivateManager = #{privatemanager,jdbcType=TINYINT},
+      ykttime = #{ykttime,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

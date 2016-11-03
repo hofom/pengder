@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TinstrumentMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tinstrument" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Model" property="model" jdbcType="VARCHAR" />
+    <result column="Specification" property="specification" jdbcType="VARCHAR" />
+    <result column="Manufacturer" property="manufacturer" jdbcType="VARCHAR" />
+    <result column="Country" property="country" jdbcType="VARCHAR" />
+    <result column="Supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="PurchasedDate" property="purchaseddate" jdbcType="DATE" />
+    <result column="Value" property="value" jdbcType="DECIMAL" />
+    <result column="ImageID" property="imageid" jdbcType="VARCHAR" />
+    <result column="Transactor" property="transactor" jdbcType="INTEGER" />
+    <result column="Room" property="room" jdbcType="VARCHAR" />
+    <result column="DoorList" property="doorlist" jdbcType="VARCHAR" />
+    <result column="AssetNumber" property="assetnumber" jdbcType="VARCHAR" />
+    <result column="AssetManager" property="assetmanager" jdbcType="BIGINT" />
+    <result column="Application" property="application" jdbcType="VARCHAR" />
+    <result column="Accessories" property="accessories" jdbcType="VARCHAR" />
+    <result column="Parameter" property="parameter" jdbcType="VARCHAR" />
+    <result column="OrganizationID" property="organizationid" jdbcType="BIGINT" />
+    <result column="InstrumentTypeID" property="instrumenttypeid" jdbcType="INTEGER" />
+    <result column="BookingModelID" property="bookingmodelid" jdbcType="SMALLINT" />
+    <result column="TerminalMac" property="terminalmac" jdbcType="CHAR" />
+    <result column="TerminalVersion" property="terminalversion" jdbcType="VARCHAR" />
+    <result column="ControlTypeID" property="controltypeid" jdbcType="SMALLINT" />
+    <result column="InstrumentStatusID" property="instrumentstatusid" jdbcType="SMALLINT" />
+    <result column="BeginUsingTime" property="beginusingtime" jdbcType="TIMESTAMP" />
+    <result column="MinInterval" property="mininterval" jdbcType="SMALLINT" />
+    <result column="MaxInterval" property="maxinterval" jdbcType="SMALLINT" />
+    <result column="MinLeadTime" property="minleadtime" jdbcType="SMALLINT" />
+    <result column="MaxLeadTime" property="maxleadtime" jdbcType="INTEGER" />
+    <result column="MaxValidBooking" property="maxvalidbooking" jdbcType="TINYINT" />
+    <result column="BookingHoldingTime" property="bookingholdingtime" jdbcType="SMALLINT" />
+    <result column="FreeCancelling" property="freecancelling" jdbcType="SMALLINT" />
+    <result column="AlertTime" property="alerttime" jdbcType="SMALLINT" />
+    <result column="OffDelayTime" property="offdelaytime" jdbcType="SMALLINT" />
+    <result column="MinOffTime" property="minofftime" jdbcType="SMALLINT" />
+    <result column="AlertCurrent" property="alertcurrent" jdbcType="REAL" />
+    <result column="CreatedID" property="createdid" jdbcType="INTEGER" />
+    <result column="CreatedDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="ModifiedID" property="modifiedid" jdbcType="INTEGER" />
+    <result column="ModifiedDate" property="modifieddate" jdbcType="TIMESTAMP" />
+    <result column="DeletedID" property="deletedid" jdbcType="INTEGER" />
+    <result column="DeletedDate" property="deleteddate" jdbcType="TIMESTAMP" />
+    <result column="ApplySynTick" property="applysyntick" jdbcType="INTEGER" />
+    <result column="ReceiveSynTick" property="receivesyntick" jdbcType="INTEGER" />
+    <result column="NoCardUse" property="nocarduse" jdbcType="SMALLINT" />
+    <result column="MinOrderdate" property="minorderdate" jdbcType="SMALLINT" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, Name, Model, Specification, Manufacturer, Country, Supplier, PurchasedDate, Value, 
+    ImageID, Transactor, Room, DoorList, AssetNumber, AssetManager, Application, Accessories, 
+    Parameter, OrganizationID, InstrumentTypeID, BookingModelID, TerminalMac, TerminalVersion, 
+    ControlTypeID, InstrumentStatusID, BeginUsingTime, MinInterval, MaxInterval, MinLeadTime, 
+    MaxLeadTime, MaxValidBooking, BookingHoldingTime, FreeCancelling, AlertTime, OffDelayTime, 
+    MinOffTime, AlertCurrent, CreatedID, CreatedDate, ModifiedID, ModifiedDate, DeletedID, 
+    DeletedDate, ApplySynTick, ReceiveSynTick, NoCardUse, MinOrderdate, Description
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TinstrumentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tinstrument
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectNewByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TinstrumentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tinstrument
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+      and ApplySynTick>=ReceiveSynTick 
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tinstrument
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tinstrument
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tinstrument" >
+    insert into tinstrument (ID, Name, Model, 
+      Specification, Manufacturer, Country, 
+      Supplier, PurchasedDate, Value, 
+      ImageID, Transactor, Room, 
+      DoorList, AssetNumber, AssetManager, 
+      Application, Accessories, Parameter, 
+      OrganizationID, InstrumentTypeID, BookingModelID, 
+      TerminalMac, TerminalVersion, ControlTypeID, 
+      InstrumentStatusID, BeginUsingTime, 
+      MinInterval, MaxInterval, MinLeadTime, 
+      MaxLeadTime, MaxValidBooking, BookingHoldingTime, 
+      FreeCancelling, AlertTime, OffDelayTime, 
+      MinOffTime, AlertCurrent, CreatedID, 
+      CreatedDate, ModifiedID, ModifiedDate, 
+      DeletedID, DeletedDate, ApplySynTick, 
+      ReceiveSynTick, NoCardUse, MinOrderdate, 
+      Description)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{supplier,jdbcType=VARCHAR}, #{purchaseddate,jdbcType=DATE}, #{value,jdbcType=DECIMAL}, 
+      #{imageid,jdbcType=VARCHAR}, #{transactor,jdbcType=INTEGER}, #{room,jdbcType=VARCHAR}, 
+      #{doorlist,jdbcType=VARCHAR}, #{assetnumber,jdbcType=VARCHAR}, #{assetmanager,jdbcType=BIGINT}, 
+      #{application,jdbcType=VARCHAR}, #{accessories,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, 
+      #{organizationid,jdbcType=BIGINT}, #{instrumenttypeid,jdbcType=INTEGER}, #{bookingmodelid,jdbcType=SMALLINT}, 
+      #{terminalmac,jdbcType=CHAR}, #{terminalversion,jdbcType=VARCHAR}, #{controltypeid,jdbcType=SMALLINT}, 
+      #{instrumentstatusid,jdbcType=SMALLINT}, #{beginusingtime,jdbcType=TIMESTAMP}, 
+      #{mininterval,jdbcType=SMALLINT}, #{maxinterval,jdbcType=SMALLINT}, #{minleadtime,jdbcType=SMALLINT}, 
+      #{maxleadtime,jdbcType=INTEGER}, #{maxvalidbooking,jdbcType=TINYINT}, #{bookingholdingtime,jdbcType=SMALLINT}, 
+      #{freecancelling,jdbcType=SMALLINT}, #{alerttime,jdbcType=SMALLINT}, #{offdelaytime,jdbcType=SMALLINT}, 
+      #{minofftime,jdbcType=SMALLINT}, #{alertcurrent,jdbcType=REAL}, #{createdid,jdbcType=INTEGER}, 
+      #{createddate,jdbcType=TIMESTAMP}, #{modifiedid,jdbcType=INTEGER}, #{modifieddate,jdbcType=TIMESTAMP}, 
+      #{deletedid,jdbcType=INTEGER}, #{deleteddate,jdbcType=TIMESTAMP}, #{applysyntick,jdbcType=INTEGER}, 
+      #{receivesyntick,jdbcType=INTEGER}, #{nocarduse,jdbcType=SMALLINT}, #{minorderdate,jdbcType=SMALLINT}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tinstrument" >
+    insert into tinstrument
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="model != null" >
+        Model,
+      </if>
+      <if test="specification != null" >
+        Specification,
+      </if>
+      <if test="manufacturer != null" >
+        Manufacturer,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="supplier != null" >
+        Supplier,
+      </if>
+      <if test="purchaseddate != null" >
+        PurchasedDate,
+      </if>
+      <if test="value != null" >
+        Value,
+      </if>
+      <if test="imageid != null" >
+        ImageID,
+      </if>
+      <if test="transactor != null" >
+        Transactor,
+      </if>
+      <if test="room != null" >
+        Room,
+      </if>
+      <if test="doorlist != null" >
+        DoorList,
+      </if>
+      <if test="assetnumber != null" >
+        AssetNumber,
+      </if>
+      <if test="assetmanager != null" >
+        AssetManager,
+      </if>
+      <if test="application != null" >
+        Application,
+      </if>
+      <if test="accessories != null" >
+        Accessories,
+      </if>
+      <if test="parameter != null" >
+        Parameter,
+      </if>
+      <if test="organizationid != null" >
+        OrganizationID,
+      </if>
+      <if test="instrumenttypeid != null" >
+        InstrumentTypeID,
+      </if>
+      <if test="bookingmodelid != null" >
+        BookingModelID,
+      </if>
+      <if test="terminalmac != null" >
+        TerminalMac,
+      </if>
+      <if test="terminalversion != null" >
+        TerminalVersion,
+      </if>
+      <if test="controltypeid != null" >
+        ControlTypeID,
+      </if>
+      <if test="instrumentstatusid != null" >
+        InstrumentStatusID,
+      </if>
+      <if test="beginusingtime != null" >
+        BeginUsingTime,
+      </if>
+      <if test="mininterval != null" >
+        MinInterval,
+      </if>
+      <if test="maxinterval != null" >
+        MaxInterval,
+      </if>
+      <if test="minleadtime != null" >
+        MinLeadTime,
+      </if>
+      <if test="maxleadtime != null" >
+        MaxLeadTime,
+      </if>
+      <if test="maxvalidbooking != null" >
+        MaxValidBooking,
+      </if>
+      <if test="bookingholdingtime != null" >
+        BookingHoldingTime,
+      </if>
+      <if test="freecancelling != null" >
+        FreeCancelling,
+      </if>
+      <if test="alerttime != null" >
+        AlertTime,
+      </if>
+      <if test="offdelaytime != null" >
+        OffDelayTime,
+      </if>
+      <if test="minofftime != null" >
+        MinOffTime,
+      </if>
+      <if test="alertcurrent != null" >
+        AlertCurrent,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createddate != null" >
+        CreatedDate,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="deleteddate != null" >
+        DeletedDate,
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick,
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick,
+      </if>
+      <if test="nocarduse != null" >
+        NoCardUse,
+      </if>
+      <if test="minorderdate != null" >
+        MinOrderdate,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null" >
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseddate != null" >
+        #{purchaseddate,jdbcType=DATE},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=DECIMAL},
+      </if>
+      <if test="imageid != null" >
+        #{imageid,jdbcType=VARCHAR},
+      </if>
+      <if test="transactor != null" >
+        #{transactor,jdbcType=INTEGER},
+      </if>
+      <if test="room != null" >
+        #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="doorlist != null" >
+        #{doorlist,jdbcType=VARCHAR},
+      </if>
+      <if test="assetnumber != null" >
+        #{assetnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="assetmanager != null" >
+        #{assetmanager,jdbcType=BIGINT},
+      </if>
+      <if test="application != null" >
+        #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="accessories != null" >
+        #{accessories,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null" >
+        #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationid != null" >
+        #{organizationid,jdbcType=BIGINT},
+      </if>
+      <if test="instrumenttypeid != null" >
+        #{instrumenttypeid,jdbcType=INTEGER},
+      </if>
+      <if test="bookingmodelid != null" >
+        #{bookingmodelid,jdbcType=SMALLINT},
+      </if>
+      <if test="terminalmac != null" >
+        #{terminalmac,jdbcType=CHAR},
+      </if>
+      <if test="terminalversion != null" >
+        #{terminalversion,jdbcType=VARCHAR},
+      </if>
+      <if test="controltypeid != null" >
+        #{controltypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="instrumentstatusid != null" >
+        #{instrumentstatusid,jdbcType=SMALLINT},
+      </if>
+      <if test="beginusingtime != null" >
+        #{beginusingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mininterval != null" >
+        #{mininterval,jdbcType=SMALLINT},
+      </if>
+      <if test="maxinterval != null" >
+        #{maxinterval,jdbcType=SMALLINT},
+      </if>
+      <if test="minleadtime != null" >
+        #{minleadtime,jdbcType=SMALLINT},
+      </if>
+      <if test="maxleadtime != null" >
+        #{maxleadtime,jdbcType=INTEGER},
+      </if>
+      <if test="maxvalidbooking != null" >
+        #{maxvalidbooking,jdbcType=TINYINT},
+      </if>
+      <if test="bookingholdingtime != null" >
+        #{bookingholdingtime,jdbcType=SMALLINT},
+      </if>
+      <if test="freecancelling != null" >
+        #{freecancelling,jdbcType=SMALLINT},
+      </if>
+      <if test="alerttime != null" >
+        #{alerttime,jdbcType=SMALLINT},
+      </if>
+      <if test="offdelaytime != null" >
+        #{offdelaytime,jdbcType=SMALLINT},
+      </if>
+      <if test="minofftime != null" >
+        #{minofftime,jdbcType=SMALLINT},
+      </if>
+      <if test="alertcurrent != null" >
+        #{alertcurrent,jdbcType=REAL},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifieddate != null" >
+        #{modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deleteddate != null" >
+        #{deleteddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applysyntick != null" >
+        #{applysyntick,jdbcType=INTEGER},
+      </if>
+      <if test="receivesyntick != null" >
+        #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="nocarduse != null" >
+        #{nocarduse,jdbcType=SMALLINT},
+      </if>
+      <if test="minorderdate != null" >
+        #{minorderdate,jdbcType=SMALLINT},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TinstrumentExample" resultType="java.lang.Integer" >
+    select count(*) from tinstrument
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tinstrument" >
+    update tinstrument
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        Model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        Specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null" >
+        Supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseddate != null" >
+        PurchasedDate = #{purchaseddate,jdbcType=DATE},
+      </if>
+      <if test="value != null" >
+        Value = #{value,jdbcType=DECIMAL},
+      </if>
+      <if test="imageid != null" >
+        ImageID = #{imageid,jdbcType=VARCHAR},
+      </if>
+      <if test="transactor != null" >
+        Transactor = #{transactor,jdbcType=INTEGER},
+      </if>
+      <if test="room != null" >
+        Room = #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="doorlist != null" >
+        DoorList = #{doorlist,jdbcType=VARCHAR},
+      </if>
+      <if test="assetnumber != null" >
+        AssetNumber = #{assetnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="assetmanager != null" >
+        AssetManager = #{assetmanager,jdbcType=BIGINT},
+      </if>
+      <if test="application != null" >
+        Application = #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="accessories != null" >
+        Accessories = #{accessories,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null" >
+        Parameter = #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationid != null" >
+        OrganizationID = #{organizationid,jdbcType=BIGINT},
+      </if>
+      <if test="instrumenttypeid != null" >
+        InstrumentTypeID = #{instrumenttypeid,jdbcType=INTEGER},
+      </if>
+      <if test="bookingmodelid != null" >
+        BookingModelID = #{bookingmodelid,jdbcType=SMALLINT},
+      </if>
+      <if test="terminalmac != null" >
+        TerminalMac = #{terminalmac,jdbcType=CHAR},
+      </if>
+      <if test="terminalversion != null" >
+        TerminalVersion = #{terminalversion,jdbcType=VARCHAR},
+      </if>
+      <if test="controltypeid != null" >
+        ControlTypeID = #{controltypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="instrumentstatusid != null" >
+        InstrumentStatusID = #{instrumentstatusid,jdbcType=SMALLINT},
+      </if>
+      <if test="beginusingtime != null" >
+        BeginUsingTime = #{beginusingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mininterval != null" >
+        MinInterval = #{mininterval,jdbcType=SMALLINT},
+      </if>
+      <if test="maxinterval != null" >
+        MaxInterval = #{maxinterval,jdbcType=SMALLINT},
+      </if>
+      <if test="minleadtime != null" >
+        MinLeadTime = #{minleadtime,jdbcType=SMALLINT},
+      </if>
+      <if test="maxleadtime != null" >
+        MaxLeadTime = #{maxleadtime,jdbcType=INTEGER},
+      </if>
+      <if test="maxvalidbooking != null" >
+        MaxValidBooking = #{maxvalidbooking,jdbcType=TINYINT},
+      </if>
+      <if test="bookingholdingtime != null" >
+        BookingHoldingTime = #{bookingholdingtime,jdbcType=SMALLINT},
+      </if>
+      <if test="freecancelling != null" >
+        FreeCancelling = #{freecancelling,jdbcType=SMALLINT},
+      </if>
+      <if test="alerttime != null" >
+        AlertTime = #{alerttime,jdbcType=SMALLINT},
+      </if>
+      <if test="offdelaytime != null" >
+        OffDelayTime = #{offdelaytime,jdbcType=SMALLINT},
+      </if>
+      <if test="minofftime != null" >
+        MinOffTime = #{minofftime,jdbcType=SMALLINT},
+      </if>
+      <if test="alertcurrent != null" >
+        AlertCurrent = #{alertcurrent,jdbcType=REAL},
+      </if>
+      <if test="createdid != null" >
+        CreatedID = #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createddate != null" >
+        CreatedDate = #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifieddate != null" >
+        ModifiedDate = #{modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        DeletedID = #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deleteddate != null" >
+        DeletedDate = #{deleteddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="nocarduse != null" >
+        NoCardUse = #{nocarduse,jdbcType=SMALLINT},
+      </if>
+      <if test="minorderdate != null" >
+        MinOrderdate = #{minorderdate,jdbcType=SMALLINT},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tinstrument" >
+    update tinstrument
+    set Name = #{name,jdbcType=VARCHAR},
+      Model = #{model,jdbcType=VARCHAR},
+      Specification = #{specification,jdbcType=VARCHAR},
+      Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      Supplier = #{supplier,jdbcType=VARCHAR},
+      PurchasedDate = #{purchaseddate,jdbcType=DATE},
+      Value = #{value,jdbcType=DECIMAL},
+      ImageID = #{imageid,jdbcType=VARCHAR},
+      Transactor = #{transactor,jdbcType=INTEGER},
+      Room = #{room,jdbcType=VARCHAR},
+      DoorList = #{doorlist,jdbcType=VARCHAR},
+      AssetNumber = #{assetnumber,jdbcType=VARCHAR},
+      AssetManager = #{assetmanager,jdbcType=BIGINT},
+      Application = #{application,jdbcType=VARCHAR},
+      Accessories = #{accessories,jdbcType=VARCHAR},
+      Parameter = #{parameter,jdbcType=VARCHAR},
+      OrganizationID = #{organizationid,jdbcType=BIGINT},
+      InstrumentTypeID = #{instrumenttypeid,jdbcType=INTEGER},
+      BookingModelID = #{bookingmodelid,jdbcType=SMALLINT},
+      TerminalMac = #{terminalmac,jdbcType=CHAR},
+      TerminalVersion = #{terminalversion,jdbcType=VARCHAR},
+      ControlTypeID = #{controltypeid,jdbcType=SMALLINT},
+      InstrumentStatusID = #{instrumentstatusid,jdbcType=SMALLINT},
+      BeginUsingTime = #{beginusingtime,jdbcType=TIMESTAMP},
+      MinInterval = #{mininterval,jdbcType=SMALLINT},
+      MaxInterval = #{maxinterval,jdbcType=SMALLINT},
+      MinLeadTime = #{minleadtime,jdbcType=SMALLINT},
+      MaxLeadTime = #{maxleadtime,jdbcType=INTEGER},
+      MaxValidBooking = #{maxvalidbooking,jdbcType=TINYINT},
+      BookingHoldingTime = #{bookingholdingtime,jdbcType=SMALLINT},
+      FreeCancelling = #{freecancelling,jdbcType=SMALLINT},
+      AlertTime = #{alerttime,jdbcType=SMALLINT},
+      OffDelayTime = #{offdelaytime,jdbcType=SMALLINT},
+      MinOffTime = #{minofftime,jdbcType=SMALLINT},
+      AlertCurrent = #{alertcurrent,jdbcType=REAL},
+      CreatedID = #{createdid,jdbcType=INTEGER},
+      CreatedDate = #{createddate,jdbcType=TIMESTAMP},
+      ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      ModifiedDate = #{modifieddate,jdbcType=TIMESTAMP},
+      DeletedID = #{deletedid,jdbcType=INTEGER},
+      DeletedDate = #{deleteddate,jdbcType=TIMESTAMP},
+      ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      NoCardUse = #{nocarduse,jdbcType=SMALLINT},
+      MinOrderdate = #{minorderdate,jdbcType=SMALLINT},
+      Description = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

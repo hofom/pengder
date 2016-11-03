@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TeventofuserMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Teventofuser" >
+    <id column="EventType" property="eventtype" jdbcType="SMALLINT" />
+    <id column="UserID" property="userid" jdbcType="INTEGER" />
+    <id column="OperationTime" property="operationtime" jdbcType="TIMESTAMP" />
+    <result column="Operator" property="operator" jdbcType="INTEGER" />
+    <result column="OperateValue1" property="operatevalue1" jdbcType="VARCHAR" />
+    <result column="OperateValue2" property="operatevalue2" jdbcType="INTEGER" />
+    <result column="PartitionID" property="partitionid" jdbcType="TINYINT" />
+    <result column="RelateRecord" property="relaterecord" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EventType, UserID, OperationTime, Operator, OperateValue1, OperateValue2, PartitionID, 
+    RelateRecord
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TeventofuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from teventofuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TeventofuserKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from teventofuser
+    where EventType = #{eventtype,jdbcType=SMALLINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and OperationTime = #{operationtime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.TeventofuserKey" >
+    delete from teventofuser
+    where EventType = #{eventtype,jdbcType=SMALLINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and OperationTime = #{operationtime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Teventofuser" >
+    insert into teventofuser (EventType, UserID, OperationTime, 
+      Operator, OperateValue1, OperateValue2, 
+      PartitionID, RelateRecord)
+    values (#{eventtype,jdbcType=SMALLINT}, #{userid,jdbcType=INTEGER}, #{operationtime,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=INTEGER}, #{operatevalue1,jdbcType=VARCHAR}, #{operatevalue2,jdbcType=INTEGER}, 
+      #{partitionid,jdbcType=TINYINT}, #{relaterecord,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Teventofuser" >
+    insert into teventofuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eventtype != null" >
+        EventType,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="operationtime != null" >
+        OperationTime,
+      </if>
+      <if test="operator != null" >
+        Operator,
+      </if>
+      <if test="operatevalue1 != null" >
+        OperateValue1,
+      </if>
+      <if test="operatevalue2 != null" >
+        OperateValue2,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+      <if test="relaterecord != null" >
+        RelateRecord,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eventtype != null" >
+        #{eventtype,jdbcType=SMALLINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="operationtime != null" >
+        #{operationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="operatevalue1 != null" >
+        #{operatevalue1,jdbcType=VARCHAR},
+      </if>
+      <if test="operatevalue2 != null" >
+        #{operatevalue2,jdbcType=INTEGER},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="relaterecord != null" >
+        #{relaterecord,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TeventofuserExample" resultType="java.lang.Integer" >
+    select count(*) from teventofuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Teventofuser" >
+    update teventofuser
+    <set >
+      <if test="operator != null" >
+        Operator = #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="operatevalue1 != null" >
+        OperateValue1 = #{operatevalue1,jdbcType=VARCHAR},
+      </if>
+      <if test="operatevalue2 != null" >
+        OperateValue2 = #{operatevalue2,jdbcType=INTEGER},
+      </if>
+      <if test="partitionid != null" >
+        PartitionID = #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="relaterecord != null" >
+        RelateRecord = #{relaterecord,jdbcType=BIGINT},
+      </if>
+    </set>
+    where EventType = #{eventtype,jdbcType=SMALLINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and OperationTime = #{operationtime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Teventofuser" >
+    update teventofuser
+    set Operator = #{operator,jdbcType=INTEGER},
+      OperateValue1 = #{operatevalue1,jdbcType=VARCHAR},
+      OperateValue2 = #{operatevalue2,jdbcType=INTEGER},
+      PartitionID = #{partitionid,jdbcType=TINYINT},
+      RelateRecord = #{relaterecord,jdbcType=BIGINT}
+    where EventType = #{eventtype,jdbcType=SMALLINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and OperationTime = #{operationtime,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

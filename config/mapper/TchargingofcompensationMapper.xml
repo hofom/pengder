@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TchargingofcompensationMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tchargingofcompensation" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <id column="Version" property="version" jdbcType="SMALLINT" />
+    <result column="Newest" property="newest" jdbcType="BIT" />
+    <result column="AccountID" property="accountid" jdbcType="INTEGER" />
+    <result column="User" property="user" jdbcType="INTEGER" />
+    <result column="Time" property="time" jdbcType="TIMESTAMP" />
+    <result column="Reason" property="reason" jdbcType="VARCHAR" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="Quantity" property="quantity" jdbcType="SMALLINT" />
+    <result column="Price" property="price" jdbcType="DECIMAL" />
+    <result column="FillByUser" property="fillbyuser" jdbcType="VARCHAR" />
+    <result column="FilledTime" property="filledtime" jdbcType="TIMESTAMP" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="PartitionID" property="partitionid" jdbcType="TINYINT" />
+    <result column="GainCredit" property="gaincredit" jdbcType="SMALLINT" />
+    <result column="ResearchGroupID" property="researchgroupid" jdbcType="INTEGER" />
+    <result column="DeletedID" property="deletedid" jdbcType="INTEGER" />
+    <result column="DeletedTime" property="deletedtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, Version, Newest, AccountID, User, Time, Reason, InstrumentID, Quantity, Price, 
+    FillByUser, FilledTime, Comment, PartitionID, GainCredit, ResearchGroupID, DeletedID, 
+    DeletedTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TchargingofcompensationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tchargingofcompensation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TchargingofcompensationKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tchargingofcompensation
+    where ID = #{id,jdbcType=INTEGER}
+      and Version = #{version,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.TchargingofcompensationKey" >
+    delete from tchargingofcompensation
+    where ID = #{id,jdbcType=INTEGER}
+      and Version = #{version,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tchargingofcompensation" >
+    insert into tchargingofcompensation (ID, Version, Newest, 
+      AccountID, User, Time, 
+      Reason, InstrumentID, Quantity, 
+      Price, FillByUser, FilledTime, 
+      Comment, PartitionID, GainCredit, 
+      ResearchGroupID, DeletedID, DeletedTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{version,jdbcType=SMALLINT}, #{newest,jdbcType=BIT}, 
+      #{accountid,jdbcType=INTEGER}, #{user,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{reason,jdbcType=VARCHAR}, #{instrumentid,jdbcType=INTEGER}, #{quantity,jdbcType=SMALLINT}, 
+      #{price,jdbcType=DECIMAL}, #{fillbyuser,jdbcType=VARCHAR}, #{filledtime,jdbcType=TIMESTAMP}, 
+      #{comment,jdbcType=VARCHAR}, #{partitionid,jdbcType=TINYINT}, #{gaincredit,jdbcType=SMALLINT}, 
+      #{researchgroupid,jdbcType=INTEGER}, #{deletedid,jdbcType=INTEGER}, #{deletedtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tchargingofcompensation" >
+    insert into tchargingofcompensation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="version != null" >
+        Version,
+      </if>
+      <if test="newest != null" >
+        Newest,
+      </if>
+      <if test="accountid != null" >
+        AccountID,
+      </if>
+      <if test="user != null" >
+        User,
+      </if>
+      <if test="time != null" >
+        Time,
+      </if>
+      <if test="reason != null" >
+        Reason,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="quantity != null" >
+        Quantity,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="fillbyuser != null" >
+        FillByUser,
+      </if>
+      <if test="filledtime != null" >
+        FilledTime,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+      <if test="gaincredit != null" >
+        GainCredit,
+      </if>
+      <if test="researchgroupid != null" >
+        ResearchGroupID,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=SMALLINT},
+      </if>
+      <if test="newest != null" >
+        #{newest,jdbcType=BIT},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=SMALLINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="fillbyuser != null" >
+        #{fillbyuser,jdbcType=VARCHAR},
+      </if>
+      <if test="filledtime != null" >
+        #{filledtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="gaincredit != null" >
+        #{gaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="researchgroupid != null" >
+        #{researchgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TchargingofcompensationExample" resultType="java.lang.Integer" >
+    select count(*) from tchargingofcompensation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tchargingofcompensation" >
+    update tchargingofcompensation
+    <set >
+      <if test="newest != null" >
+        Newest = #{newest,jdbcType=BIT},
+      </if>
+      <if test="accountid != null" >
+        AccountID = #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        User = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        Time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null" >
+        Reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null" >
+        Quantity = #{quantity,jdbcType=SMALLINT},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="fillbyuser != null" >
+        FillByUser = #{fillbyuser,jdbcType=VARCHAR},
+      </if>
+      <if test="filledtime != null" >
+        FilledTime = #{filledtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionid != null" >
+        PartitionID = #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="gaincredit != null" >
+        GainCredit = #{gaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="researchgroupid != null" >
+        ResearchGroupID = #{researchgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedid != null" >
+        DeletedID = #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+      and Version = #{version,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tchargingofcompensation" >
+    update tchargingofcompensation
+    set Newest = #{newest,jdbcType=BIT},
+      AccountID = #{accountid,jdbcType=INTEGER},
+      User = #{user,jdbcType=INTEGER},
+      Time = #{time,jdbcType=TIMESTAMP},
+      Reason = #{reason,jdbcType=VARCHAR},
+      InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      Quantity = #{quantity,jdbcType=SMALLINT},
+      Price = #{price,jdbcType=DECIMAL},
+      FillByUser = #{fillbyuser,jdbcType=VARCHAR},
+      FilledTime = #{filledtime,jdbcType=TIMESTAMP},
+      Comment = #{comment,jdbcType=VARCHAR},
+      PartitionID = #{partitionid,jdbcType=TINYINT},
+      GainCredit = #{gaincredit,jdbcType=SMALLINT},
+      ResearchGroupID = #{researchgroupid,jdbcType=INTEGER},
+      DeletedID = #{deletedid,jdbcType=INTEGER},
+      DeletedTime = #{deletedtime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+      and Version = #{version,jdbcType=SMALLINT}
+  </update>
+</mapper>

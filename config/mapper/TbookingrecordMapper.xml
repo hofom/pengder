@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TbookingrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tbookingrecord" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="BookingPriorityID" property="bookingpriorityid" jdbcType="SMALLINT" />
+    <result column="BookingModelID" property="bookingmodelid" jdbcType="SMALLINT" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="SessionTypeID" property="sessiontypeid" jdbcType="SMALLINT" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="BookingStatusID" property="bookingstatusid" jdbcType="SMALLINT" />
+    <result column="CreatedID" property="createdid" jdbcType="BIGINT" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="ModifiedID" property="modifiedid" jdbcType="BIGINT" />
+    <result column="ModifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
+    <result column="ReceiveSynTick" property="receivesyntick" jdbcType="INTEGER" />
+    <result column="ApplySynTick" property="applysyntick" jdbcType="INTEGER" />
+    <result column="IsAllowReg" property="isallowreg" jdbcType="BIT" />
+    <result column="GainCredit" property="gaincredit" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, InstrumentID, UserID, BookingPriorityID, BookingModelID, StartTime, EndTime, 
+    Title, SessionTypeID, Comment, BookingStatusID, CreatedID, CreatedTime, ModifiedID, 
+    ModifiedTime, ReceiveSynTick, ApplySynTick, IsAllowReg, GainCredit
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TbookingrecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbookingrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+      and  UNIX_TIMESTAMP(StartTime) > 0
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectNewByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TbookingrecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbookingrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+      and ApplySynTick>=ReceiveSynTick and  UNIX_TIMESTAMP(StartTime) > 0
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbookingrecord
+    where ID = #{id,jdbcType=INTEGER} and  UNIX_TIMESTAMP(StartTime) > 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbookingrecord
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tbookingrecord" >
+    insert into tbookingrecord (ID, InstrumentID, UserID, 
+      BookingPriorityID, BookingModelID, StartTime, 
+      EndTime, Title, SessionTypeID, 
+      Comment, BookingStatusID, CreatedID, 
+      CreatedTime, ModifiedID, ModifiedTime, 
+      ReceiveSynTick, ApplySynTick, IsAllowReg, 
+      GainCredit)
+    values (#{id,jdbcType=INTEGER}, #{instrumentid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{bookingpriorityid,jdbcType=SMALLINT}, #{bookingmodelid,jdbcType=SMALLINT}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{sessiontypeid,jdbcType=SMALLINT}, 
+      #{comment,jdbcType=VARCHAR}, #{bookingstatusid,jdbcType=SMALLINT}, #{createdid,jdbcType=BIGINT}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{modifiedid,jdbcType=BIGINT}, #{modifiedtime,jdbcType=TIMESTAMP}, 
+      #{receivesyntick,jdbcType=INTEGER}, #{applysyntick,jdbcType=INTEGER}, #{isallowreg,jdbcType=BIT}, 
+      #{gaincredit,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tbookingrecord" >
+    insert into tbookingrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="bookingpriorityid != null" >
+        BookingPriorityID,
+      </if>
+      <if test="bookingmodelid != null" >
+        BookingModelID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="sessiontypeid != null" >
+        SessionTypeID,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="bookingstatusid != null" >
+        BookingStatusID,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick,
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick,
+      </if>
+      <if test="isallowreg != null" >
+        IsAllowReg,
+      </if>
+      <if test="gaincredit != null" >
+        GainCredit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="bookingpriorityid != null" >
+        #{bookingpriorityid,jdbcType=SMALLINT},
+      </if>
+      <if test="bookingmodelid != null" >
+        #{bookingmodelid,jdbcType=SMALLINT},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sessiontypeid != null" >
+        #{sessiontypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingstatusid != null" >
+        #{bookingstatusid,jdbcType=SMALLINT},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=BIGINT},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivesyntick != null" >
+        #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="applysyntick != null" >
+        #{applysyntick,jdbcType=INTEGER},
+      </if>
+      <if test="isallowreg != null" >
+        #{isallowreg,jdbcType=BIT},
+      </if>
+      <if test="gaincredit != null" >
+        #{gaincredit,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TbookingrecordExample" resultType="java.lang.Integer" >
+    select count(*) from tbookingrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tbookingrecord" >
+    update tbookingrecord
+    <set >
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="bookingpriorityid != null" >
+        BookingPriorityID = #{bookingpriorityid,jdbcType=SMALLINT},
+      </if>
+      <if test="bookingmodelid != null" >
+        BookingModelID = #{bookingmodelid,jdbcType=SMALLINT},
+      </if>
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sessiontypeid != null" >
+        SessionTypeID = #{sessiontypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingstatusid != null" >
+        BookingStatusID = #{bookingstatusid,jdbcType=SMALLINT},
+      </if>
+      <if test="createdid != null" >
+        CreatedID = #{createdid,jdbcType=BIGINT},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID = #{modifiedid,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      </if>
+      <if test="isallowreg != null" >
+        IsAllowReg = #{isallowreg,jdbcType=BIT},
+      </if>
+      <if test="gaincredit != null" >
+        GainCredit = #{gaincredit,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tbookingrecord" >
+    update tbookingrecord
+    set InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      UserID = #{userid,jdbcType=INTEGER},
+      BookingPriorityID = #{bookingpriorityid,jdbcType=SMALLINT},
+      BookingModelID = #{bookingmodelid,jdbcType=SMALLINT},
+      StartTime = #{starttime,jdbcType=TIMESTAMP},
+      EndTime = #{endtime,jdbcType=TIMESTAMP},
+      Title = #{title,jdbcType=VARCHAR},
+      SessionTypeID = #{sessiontypeid,jdbcType=SMALLINT},
+      Comment = #{comment,jdbcType=VARCHAR},
+      BookingStatusID = #{bookingstatusid,jdbcType=SMALLINT},
+      CreatedID = #{createdid,jdbcType=BIGINT},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      ModifiedID = #{modifiedid,jdbcType=BIGINT},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      IsAllowReg = #{isallowreg,jdbcType=BIT},
+      GainCredit = #{gaincredit,jdbcType=SMALLINT}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateWithDev">
+  <![CDATA[
+    UPDATE tbookingrecord
+	INNER JOIN tinstrument ON tbookingrecord.InstrumentID = tinstrument.ID
+	SET tbookingrecord.BookingStatusID = 1108
+	WHERE
+		(tinstrument.NoCardUse = 1)
+	AND (
+		tbookingrecord.BookingStatusID = 1105
+	)
+	AND (
+		tbookingrecord.BookingModelId = 181
+	)
+	AND (
+		tbookingrecord.EndTime < NOW()
+	)
+  ]]>
+  </update>
+  
+</mapper>

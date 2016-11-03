@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TaccountMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Taccount" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="AccountName" property="accountname" jdbcType="VARCHAR" />
+    <result column="CreatedID" property="createdid" jdbcType="INTEGER" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="Money" property="money" jdbcType="DECIMAL" />
+    <result column="AccountType" property="accounttype" jdbcType="SMALLINT" />
+    <result column="NewCredit" property="newcredit" jdbcType="DECIMAL" />
+    <result column="InspireTime" property="inspiretime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="SMALLINT" />
+    <result column="AttritionType" property="attritiontype" jdbcType="SMALLINT" />
+    <result column="InitCredit" property="initcredit" jdbcType="DECIMAL" />
+    <result column="ResearchGroupID" property="researchgroupid" jdbcType="INTEGER" />
+    <result column="BelongOrganization" property="belongorganization" jdbcType="INTEGER" />
+    <result column="OwnerID" property="ownerid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, AccountName, CreatedID, CreatedTime, Money, AccountType, NewCredit, InspireTime, 
+    State, AttritionType, InitCredit, ResearchGroupID, BelongOrganization, OwnerID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TaccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from taccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="select312" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <![CDATA[
+	SELECT
+		taccount.ID AS ID,
+		taccount.State AS State,
+		taccount.ResearchGroupID AS ResearchGroupID,
+		taccount.Money AS Money,
+		taccount.InitCredit AS InitCredit,
+		taccount.NewCredit AS NewCredit,
+		taccount.InspireTime AS InspireTime
+	FROM
+		(
+			SELECT
+				TargetInstrumentID,
+				NeedSynDataID
+			FROM
+				tneedsyndata
+			WHERE
+				(NeedSynDataType = 312)
+			AND (
+				ApplySynTick >= ReceiveSynTick
+			)
+			AND (TargetInstrumentID =#{targetInstrumentID})
+		) AS temp_syndata
+	 , taccount where temp_syndata.NeedSynDataID = taccount.ID
+  ]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from taccount
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from taccount
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Taccount" >
+    insert into taccount (ID, AccountName, CreatedID, 
+      CreatedTime, Money, AccountType, 
+      NewCredit, InspireTime, State, 
+      AttritionType, InitCredit, ResearchGroupID, 
+      BelongOrganization, OwnerID)
+    values (#{id,jdbcType=INTEGER}, #{accountname,jdbcType=VARCHAR}, #{createdid,jdbcType=INTEGER}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{money,jdbcType=DECIMAL}, #{accounttype,jdbcType=SMALLINT}, 
+      #{newcredit,jdbcType=DECIMAL}, #{inspiretime,jdbcType=TIMESTAMP}, #{state,jdbcType=SMALLINT}, 
+      #{attritiontype,jdbcType=SMALLINT}, #{initcredit,jdbcType=DECIMAL}, #{researchgroupid,jdbcType=INTEGER}, 
+      #{belongorganization,jdbcType=INTEGER}, #{ownerid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Taccount" >
+    insert into taccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="accountname != null" >
+        AccountName,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="money != null" >
+        Money,
+      </if>
+      <if test="accounttype != null" >
+        AccountType,
+      </if>
+      <if test="newcredit != null" >
+        NewCredit,
+      </if>
+      <if test="inspiretime != null" >
+        InspireTime,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="attritiontype != null" >
+        AttritionType,
+      </if>
+      <if test="initcredit != null" >
+        InitCredit,
+      </if>
+      <if test="researchgroupid != null" >
+        ResearchGroupID,
+      </if>
+      <if test="belongorganization != null" >
+        BelongOrganization,
+      </if>
+      <if test="ownerid != null" >
+        OwnerID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountname != null" >
+        #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="accounttype != null" >
+        #{accounttype,jdbcType=SMALLINT},
+      </if>
+      <if test="newcredit != null" >
+        #{newcredit,jdbcType=DECIMAL},
+      </if>
+      <if test="inspiretime != null" >
+        #{inspiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="attritiontype != null" >
+        #{attritiontype,jdbcType=SMALLINT},
+      </if>
+      <if test="initcredit != null" >
+        #{initcredit,jdbcType=DECIMAL},
+      </if>
+      <if test="researchgroupid != null" >
+        #{researchgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="belongorganization != null" >
+        #{belongorganization,jdbcType=INTEGER},
+      </if>
+      <if test="ownerid != null" >
+        #{ownerid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TaccountExample" resultType="java.lang.Integer" >
+    select count(*) from taccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Taccount" >
+    update taccount
+    <set >
+      <if test="accountname != null" >
+        AccountName = #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdid != null" >
+        CreatedID = #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        Money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="accounttype != null" >
+        AccountType = #{accounttype,jdbcType=SMALLINT},
+      </if>
+      <if test="newcredit != null" >
+        NewCredit = #{newcredit,jdbcType=DECIMAL},
+      </if>
+      <if test="inspiretime != null" >
+        InspireTime = #{inspiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="attritiontype != null" >
+        AttritionType = #{attritiontype,jdbcType=SMALLINT},
+      </if>
+      <if test="initcredit != null" >
+        InitCredit = #{initcredit,jdbcType=DECIMAL},
+      </if>
+      <if test="researchgroupid != null" >
+        ResearchGroupID = #{researchgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="belongorganization != null" >
+        BelongOrganization = #{belongorganization,jdbcType=INTEGER},
+      </if>
+      <if test="ownerid != null" >
+        OwnerID = #{ownerid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Taccount" >
+    update taccount
+    set AccountName = #{accountname,jdbcType=VARCHAR},
+      CreatedID = #{createdid,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      Money = #{money,jdbcType=DECIMAL},
+      AccountType = #{accounttype,jdbcType=SMALLINT},
+      NewCredit = #{newcredit,jdbcType=DECIMAL},
+      InspireTime = #{inspiretime,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=SMALLINT},
+      AttritionType = #{attritiontype,jdbcType=SMALLINT},
+      InitCredit = #{initcredit,jdbcType=DECIMAL},
+      ResearchGroupID = #{researchgroupid,jdbcType=INTEGER},
+      BelongOrganization = #{belongorganization,jdbcType=INTEGER},
+      OwnerID = #{ownerid,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectPayedAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <![CDATA[
+  	SELECT
+		ID
+	FROM
+		(
+			SELECT
+				taccount.ID,
+				IFNULL(tmp1.Charge, 0) + IFNULL(tmp2.Charge, 0) + IFNULL(tmp3.Charge, 0) + IFNULL(tmp4.Charge, 0) AS Charge
+			FROM
+				taccount
+			LEFT JOIN (
+				SELECT
+					AccountID,
+					sum(trecordofuser.HaveCharge) AS Charge
+				FROM
+					trecordofuser
+				WHERE
+					PartitionID =#{year} - 2000
+				GROUP BY
+					AccountID
+			) AS tmp1 ON taccount.ID = tmp1.AccountID
+			LEFT JOIN (
+				SELECT
+					AccountID,
+					sum(Price * Quantity) AS Charge
+				FROM
+					tchangingofsupplies
+				WHERE
+					(
+						(Newest = 1)
+						AND (PartitionID =#{year} - 2000)
+					)
+				GROUP BY
+					AccountID
+			) AS tmp2 ON taccount.ID = tmp2.AccountID
+			LEFT JOIN (
+				SELECT
+					AccountID,
+					sum(Price * Quantity) AS Charge
+				FROM
+					tchargingofcompensation
+				WHERE
+					(
+						(Newest = 1)
+						AND (PartitionID =#{year} - 2000)
+					)
+				GROUP BY
+					AccountID
+			) AS tmp3 ON taccount.ID = tmp3.AccountID
+			LEFT JOIN (
+				SELECT
+					AccountID,
+					sum(Charge) AS Charge
+				FROM
+					tchargingofmissappoint
+				WHERE
+					PartitionID =#{year} - 2000
+				GROUP BY
+					AccountID
+			) AS tmp4 ON taccount.ID = tmp4.AccountID
+			LEFT JOIN (
+				SELECT
+					AccountID,
+					count(EVENT) AS EventCount
+				FROM
+					teventofaccount
+				WHERE
+					(
+						((EVENT = 1514) OR(EVENT = 1515))
+						AND YEAR (Time) =#{year}
+					)
+				GROUP BY
+					AccountID
+			) AS tmp5 ON taccount.ID = tmp5.AccountID
+			WHERE
+				tmp5.EventCount IS NULL
+		) AS tmp_list
+	WHERE
+		Charge > (
+			SELECT
+				VipStandard
+			FROM
+				tglobalconfig
+			WHERE
+				StartTime < now()
+			ORDER BY
+				StartTime DESC
+			LIMIT 1
+		)
+  ]]>
+  </select>
+  
+  <select id="selectWarnAccount" resultMap="BaseResultMap">
+  <![CDATA[
+	SELECT
+		ID, AccountName, CreatedID, CreatedTime, Money, AccountType, NewCredit, InspireTime, 
+    	State, AttritionType, InitCredit, ResearchGroupID, BelongOrganization, OwnerID
+	FROM
+		(
+			SELECT
+				tmp_account.*
+				tmp_event. EVENT,
+				(
+					CASE
+					WHEN Money + InitCredit < 0 THEN
+						1513
+					WHEN Money < 0 THEN
+						1512
+					ELSE
+						1511
+					END
+				) AS NewEvent
+			FROM
+				(
+					SELECT
+						*
+					FROM
+						taccount
+					WHERE
+						(
+							(AccountType = 152)
+							AND (State = 161)
+							AND (
+								Money < (
+									SELECT
+										AccountAlert
+									FROM
+										tglobalconfig
+									WHERE
+										StartTime < now()
+									ORDER BY
+										StartTime DESC
+									LIMIT 1
+								)
+							)
+						)
+				) AS tmp_account
+			LEFT JOIN (
+				SELECT
+					teventofaccount.AccountID,
+					teventofaccount. EVENT
+				FROM
+					teventofaccount
+				INNER JOIN (
+					SELECT
+						AccountID,
+						max(Time) AS LastTime
+					FROM
+						teventofaccount
+					WHERE
+						(
+							(
+								(EVENT = 1511)
+								OR (EVENT = 1512)
+								OR (EVENT = 1513)
+							)
+							AND (
+								Time > SUBDATE(now(), INTERVAL 30 DAY)
+							)
+						)
+					GROUP BY
+						AccountID
+				) AS tmp_lasttime ON (
+					(
+						teventofaccount.AccountID = tmp_lasttime.AccountID
+					)
+					AND (
+						teventofaccount.Time = tmp_lasttime.LastTime
+					)
+				)
+			) AS tmp_event ON tmp_account.ID = tmp_event.AccountID
+		) AS tmp_account2
+	WHERE
+		(
+			(EVENT <> NewEvent)
+			OR (EVENT IS NULL)
+		)
+  ]]>
+  </select>
+  
+</mapper>

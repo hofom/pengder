@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TchargingofmissappointMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tchargingofmissappoint" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="User" property="user" jdbcType="INTEGER" />
+    <result column="BelongGroup" property="belonggroup" jdbcType="INTEGER" />
+    <result column="AccountID" property="accountid" jdbcType="INTEGER" />
+    <result column="Charge" property="charge" jdbcType="DECIMAL" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="PartitionID" property="partitionid" jdbcType="TINYINT" />
+    <result column="GainCredit" property="gaincredit" jdbcType="SMALLINT" />
+    <result column="ModifiedID" property="modifiedid" jdbcType="INTEGER" />
+    <result column="ModifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
+    <result column="Representation" property="representation" jdbcType="BIT" />
+    <result column="RepresentationTime" property="representationtime" jdbcType="TIMESTAMP" />
+    <result column="RepresentationContent" property="representationcontent" jdbcType="VARCHAR" />
+    <result column="RepresentationType" property="representationtype" jdbcType="VARCHAR" />
+    <result column="RepresentationReContent" property="representationrecontent" jdbcType="VARCHAR" />
+    <result column="RepresentationReplier" property="representationreplier" jdbcType="INTEGER" />
+    <result column="BookingID" property="bookingid" jdbcType="BIGINT" />
+    <result column="DeletedID" property="deletedid" jdbcType="INTEGER" />
+    <result column="DeletedTime" property="deletedtime" jdbcType="TIMESTAMP" />
+    <result column="RepresentationReTime" property="representationretime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, User, BelongGroup, AccountID, Charge, CreatedTime, Comment, PartitionID, GainCredit, 
+    ModifiedID, ModifiedTime, Representation, RepresentationTime, RepresentationContent, 
+    RepresentationType, RepresentationReContent, RepresentationReplier, BookingID, DeletedID, 
+    DeletedTime, RepresentationReTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TchargingofmissappointExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tchargingofmissappoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tchargingofmissappoint
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tchargingofmissappoint
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tchargingofmissappoint" >
+    insert into tchargingofmissappoint (ID, User, BelongGroup, 
+      AccountID, Charge, CreatedTime, 
+      Comment, PartitionID, GainCredit, 
+      ModifiedID, ModifiedTime, Representation, 
+      RepresentationTime, RepresentationContent, 
+      RepresentationType, RepresentationReContent, 
+      RepresentationReplier, BookingID, DeletedID, 
+      DeletedTime, RepresentationReTime)
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=INTEGER}, #{belonggroup,jdbcType=INTEGER}, 
+      #{accountid,jdbcType=INTEGER}, #{charge,jdbcType=DECIMAL}, #{createdtime,jdbcType=TIMESTAMP}, 
+      #{comment,jdbcType=VARCHAR}, #{partitionid,jdbcType=TINYINT}, #{gaincredit,jdbcType=SMALLINT}, 
+      #{modifiedid,jdbcType=INTEGER}, #{modifiedtime,jdbcType=TIMESTAMP}, #{representation,jdbcType=BIT}, 
+      #{representationtime,jdbcType=TIMESTAMP}, #{representationcontent,jdbcType=VARCHAR}, 
+      #{representationtype,jdbcType=VARCHAR}, #{representationrecontent,jdbcType=VARCHAR}, 
+      #{representationreplier,jdbcType=INTEGER}, #{bookingid,jdbcType=BIGINT}, #{deletedid,jdbcType=INTEGER}, 
+      #{deletedtime,jdbcType=TIMESTAMP}, #{representationretime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tchargingofmissappoint" >
+    insert into tchargingofmissappoint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="user != null" >
+        User,
+      </if>
+      <if test="belonggroup != null" >
+        BelongGroup,
+      </if>
+      <if test="accountid != null" >
+        AccountID,
+      </if>
+      <if test="charge != null" >
+        Charge,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+      <if test="gaincredit != null" >
+        GainCredit,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="representation != null" >
+        Representation,
+      </if>
+      <if test="representationtime != null" >
+        RepresentationTime,
+      </if>
+      <if test="representationcontent != null" >
+        RepresentationContent,
+      </if>
+      <if test="representationtype != null" >
+        RepresentationType,
+      </if>
+      <if test="representationrecontent != null" >
+        RepresentationReContent,
+      </if>
+      <if test="representationreplier != null" >
+        RepresentationReplier,
+      </if>
+      <if test="bookingid != null" >
+        BookingID,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+      <if test="representationretime != null" >
+        RepresentationReTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="belonggroup != null" >
+        #{belonggroup,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="charge != null" >
+        #{charge,jdbcType=DECIMAL},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="gaincredit != null" >
+        #{gaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="representation != null" >
+        #{representation,jdbcType=BIT},
+      </if>
+      <if test="representationtime != null" >
+        #{representationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="representationcontent != null" >
+        #{representationcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="representationtype != null" >
+        #{representationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="representationrecontent != null" >
+        #{representationrecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="representationreplier != null" >
+        #{representationreplier,jdbcType=INTEGER},
+      </if>
+      <if test="bookingid != null" >
+        #{bookingid,jdbcType=BIGINT},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="representationretime != null" >
+        #{representationretime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TchargingofmissappointExample" resultType="java.lang.Integer" >
+    select count(*) from tchargingofmissappoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tchargingofmissappoint" >
+    update tchargingofmissappoint
+    <set >
+      <if test="user != null" >
+        User = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="belonggroup != null" >
+        BelongGroup = #{belonggroup,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        AccountID = #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="charge != null" >
+        Charge = #{charge,jdbcType=DECIMAL},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionid != null" >
+        PartitionID = #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="gaincredit != null" >
+        GainCredit = #{gaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="representation != null" >
+        Representation = #{representation,jdbcType=BIT},
+      </if>
+      <if test="representationtime != null" >
+        RepresentationTime = #{representationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="representationcontent != null" >
+        RepresentationContent = #{representationcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="representationtype != null" >
+        RepresentationType = #{representationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="representationrecontent != null" >
+        RepresentationReContent = #{representationrecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="representationreplier != null" >
+        RepresentationReplier = #{representationreplier,jdbcType=INTEGER},
+      </if>
+      <if test="bookingid != null" >
+        BookingID = #{bookingid,jdbcType=BIGINT},
+      </if>
+      <if test="deletedid != null" >
+        DeletedID = #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="representationretime != null" >
+        RepresentationReTime = #{representationretime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tchargingofmissappoint" >
+    update tchargingofmissappoint
+    set User = #{user,jdbcType=INTEGER},
+      BelongGroup = #{belonggroup,jdbcType=INTEGER},
+      AccountID = #{accountid,jdbcType=INTEGER},
+      Charge = #{charge,jdbcType=DECIMAL},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      Comment = #{comment,jdbcType=VARCHAR},
+      PartitionID = #{partitionid,jdbcType=TINYINT},
+      GainCredit = #{gaincredit,jdbcType=SMALLINT},
+      ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      Representation = #{representation,jdbcType=BIT},
+      RepresentationTime = #{representationtime,jdbcType=TIMESTAMP},
+      RepresentationContent = #{representationcontent,jdbcType=VARCHAR},
+      RepresentationType = #{representationtype,jdbcType=VARCHAR},
+      RepresentationReContent = #{representationrecontent,jdbcType=VARCHAR},
+      RepresentationReplier = #{representationreplier,jdbcType=INTEGER},
+      BookingID = #{bookingid,jdbcType=BIGINT},
+      DeletedID = #{deletedid,jdbcType=INTEGER},
+      DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      RepresentationReTime = #{representationretime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

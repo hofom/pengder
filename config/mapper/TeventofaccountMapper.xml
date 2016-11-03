@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TeventofaccountMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Teventofaccount" >
+    <id column="AccountID" property="accountid" jdbcType="INTEGER" />
+    <id column="Time" property="time" jdbcType="TIMESTAMP" />
+    <id column="RelevantRecord" property="relevantrecord" jdbcType="BIGINT" />
+    <result column="Event" property="event" jdbcType="SMALLINT" />
+    <result column="Operator" property="operator" jdbcType="INTEGER" />
+    <result column="EarlyCredit" property="earlycredit" jdbcType="DECIMAL" />
+    <result column="Money" property="money" jdbcType="DECIMAL" />
+    <result column="EarlyMoney" property="earlymoney" jdbcType="DECIMAL" />
+    <result column="MoneyTransaction" property="moneytransaction" jdbcType="DECIMAL" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="RelevantAccountID" property="relevantaccountid" jdbcType="INTEGER" />
+    <result column="PartitionID" property="partitionid" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AccountID, Time, RelevantRecord, Event, Operator, EarlyCredit, Money, EarlyMoney, 
+    MoneyTransaction, InstrumentID, RelevantAccountID, PartitionID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TeventofaccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from teventofaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TeventofaccountKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from teventofaccount
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and Time = #{time,jdbcType=TIMESTAMP}
+      and RelevantRecord = #{relevantrecord,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.TeventofaccountKey" >
+    delete from teventofaccount
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and Time = #{time,jdbcType=TIMESTAMP}
+      and RelevantRecord = #{relevantrecord,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Teventofaccount" >
+    insert into teventofaccount (AccountID, Time, RelevantRecord, 
+      Event, Operator, EarlyCredit, 
+      Money, EarlyMoney, MoneyTransaction, 
+      InstrumentID, RelevantAccountID, PartitionID
+      )
+    values (#{accountid,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{relevantrecord,jdbcType=BIGINT}, 
+      #{event,jdbcType=SMALLINT}, #{operator,jdbcType=INTEGER}, #{earlycredit,jdbcType=DECIMAL}, 
+      #{money,jdbcType=DECIMAL}, #{earlymoney,jdbcType=DECIMAL}, #{moneytransaction,jdbcType=DECIMAL}, 
+      #{instrumentid,jdbcType=INTEGER}, #{relevantaccountid,jdbcType=INTEGER}, #{partitionid,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertWithAccount" parameterType="com.slark.pengder.mybatis.model.Teventofaccount" >
+    INSERT INTO teventofaccount (
+		AccountID,
+		Time,
+		EVENT,
+		Operator,
+		EarlyCredit,
+		Money,
+		EarlyMoney,
+		MoneyTransaction,
+		PartitionID
+	) SELECT
+		ID,
+		now() ,#{event}, 1,
+		NewCredit,
+		Money,
+		Money,
+		0 ,{#partitionid}
+	FROM
+		taccount
+	WHERE
+		ID = #{accountid}
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Teventofaccount" >
+    insert into teventofaccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountid != null" >
+        AccountID,
+      </if>
+      <if test="time != null" >
+        Time,
+      </if>
+      <if test="relevantrecord != null" >
+        RelevantRecord,
+      </if>
+      <if test="event != null" >
+        Event,
+      </if>
+      <if test="operator != null" >
+        Operator,
+      </if>
+      <if test="earlycredit != null" >
+        EarlyCredit,
+      </if>
+      <if test="money != null" >
+        Money,
+      </if>
+      <if test="earlymoney != null" >
+        EarlyMoney,
+      </if>
+      <if test="moneytransaction != null" >
+        MoneyTransaction,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="relevantaccountid != null" >
+        RelevantAccountID,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relevantrecord != null" >
+        #{relevantrecord,jdbcType=BIGINT},
+      </if>
+      <if test="event != null" >
+        #{event,jdbcType=SMALLINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="earlycredit != null" >
+        #{earlycredit,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="earlymoney != null" >
+        #{earlymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="moneytransaction != null" >
+        #{moneytransaction,jdbcType=DECIMAL},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="relevantaccountid != null" >
+        #{relevantaccountid,jdbcType=INTEGER},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TeventofaccountExample" resultType="java.lang.Integer" >
+    select count(*) from teventofaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Teventofaccount" >
+    update teventofaccount
+    <set >
+      <if test="event != null" >
+        Event = #{event,jdbcType=SMALLINT},
+      </if>
+      <if test="operator != null" >
+        Operator = #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="earlycredit != null" >
+        EarlyCredit = #{earlycredit,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        Money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="earlymoney != null" >
+        EarlyMoney = #{earlymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="moneytransaction != null" >
+        MoneyTransaction = #{moneytransaction,jdbcType=DECIMAL},
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="relevantaccountid != null" >
+        RelevantAccountID = #{relevantaccountid,jdbcType=INTEGER},
+      </if>
+      <if test="partitionid != null" >
+        PartitionID = #{partitionid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and Time = #{time,jdbcType=TIMESTAMP}
+      and RelevantRecord = #{relevantrecord,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Teventofaccount" >
+    update teventofaccount
+    set Event = #{event,jdbcType=SMALLINT},
+      Operator = #{operator,jdbcType=INTEGER},
+      EarlyCredit = #{earlycredit,jdbcType=DECIMAL},
+      Money = #{money,jdbcType=DECIMAL},
+      EarlyMoney = #{earlymoney,jdbcType=DECIMAL},
+      MoneyTransaction = #{moneytransaction,jdbcType=DECIMAL},
+      InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      RelevantAccountID = #{relevantaccountid,jdbcType=INTEGER},
+      PartitionID = #{partitionid,jdbcType=TINYINT}
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and Time = #{time,jdbcType=TIMESTAMP}
+      and RelevantRecord = #{relevantrecord,jdbcType=BIGINT}
+  </update>
+</mapper>

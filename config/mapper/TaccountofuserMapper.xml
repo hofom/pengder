@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TaccountofuserMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Taccountofuser" >
+    <id column="AccountID" property="accountid" jdbcType="INTEGER" />
+    <id column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="UseRelationship" property="userelationship" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AccountID, UserID, UseRelationship
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TaccountofuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from taccountofuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TaccountofuserKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from taccountofuser
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and UserID = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.TaccountofuserKey" >
+    delete from taccountofuser
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and UserID = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Taccountofuser" >
+    insert into taccountofuser (AccountID, UserID, UseRelationship
+      )
+    values (#{accountid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{userelationship,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Taccountofuser" >
+    insert into taccountofuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountid != null" >
+        AccountID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="userelationship != null" >
+        UseRelationship,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="userelationship != null" >
+        #{userelationship,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TaccountofuserExample" resultType="java.lang.Integer" >
+    select count(*) from taccountofuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Taccountofuser" >
+    update taccountofuser
+    <set >
+      <if test="userelationship != null" >
+        UseRelationship = #{userelationship,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and UserID = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Taccountofuser" >
+    update taccountofuser
+    set UseRelationship = #{userelationship,jdbcType=SMALLINT}
+    where AccountID = #{accountid,jdbcType=INTEGER}
+      and UserID = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

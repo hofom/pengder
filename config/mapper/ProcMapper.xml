@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.ProcMapper" >
+  
+  	<select id="updateReceiveSynTick" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+	    	{call SynData_UpdateReceiveSynTick_Proc(
+	    		#{type,jdbcType=INTEGER,mode=IN},
+	    		#{tick,jdbcType=INTEGER,mode=IN},
+	    		#{str,jdbcType=VARCHAR,mode=IN}
+	    	)}
+    	]]>
+	</select>
+
+	<select id="updateRecordTo1104" statementType="CALLABLE">
+    	<![CDATA[
+	    	{call Book_UpdateRecordto1104_Proc()}
+    	]]>
+	</select>
+
+	<select id="updateRecordTo1108" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+	    	{call Book_UpdateRecordto1108_Proc(
+	    		#{bookingId,jdbcType=BIGINT,mode=IN},
+	    		1
+	    	)}
+    	]]>
+	</select>
+
+  	<select id="getCurUserright" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+	    	{#{userRightId,jdbcType=INTEGER,mode=OUT} = call User_GetCurUserright_Func(
+	    		#{userId,jdbcType=INTEGER,mode=IN},
+	    		#{instrumentId,jdbcType=INTEGER,mode=IN}
+	    	)}
+    	]]>
+	</select>
+	
+  	<select id="checkActivity" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+	    	{call Account_CheckActivity_Proc(
+	    		#{accountId,jdbcType=INTEGER,mode=IN},
+	    		#{state,jdbcType=INTEGER,mode=OUT}
+	    	)}
+    	]]>
+	</select>
+
+  	<select id="newRecordofuser" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+    		{call Charge_NewRecordofuser_Proc(
+    			#{sessionId,jdbcType=BIGINT,mode=IN},
+    			FROM_UNIXTIME(#{startTime,jdbcType=INTEGER,mode=IN}),
+    			FROM_UNIXTIME(#{endTime,jdbcType=INTEGER,mode=IN}),
+    			#{bookingId,jdbcType=INTEGER,mode=IN},
+    			#{userId,jdbcType=INTEGER,mode=IN},
+    			#{accountId,jdbcType=INTEGER,mode=IN},
+    			#{groupId,jdbcType=INTEGER,mode=IN},
+    			#{userRight,jdbcType=INTEGER,mode=IN},
+    			#{cardSerial,jdbcType=INTEGER,mode=IN},
+    			#{instrumentId,jdbcType=INTEGER,mode=IN},
+    			0,1,0,null,null
+    		)}
+    	]]>
+	</select>
+
+  	<select id="newChargingofusing" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+    		{call Charge_NewChargingofusing_Proc(
+    			#{sessionId,jdbcType=BIGINT,mode=IN},
+    			#{minutes,jdbcType=INTEGER,mode=IN},
+    			0,
+    			#{needInvoice,jdbcType=INTEGER,mode=IN},
+    			0,
+    			1,
+    			0,
+    			null,
+    			#{numSub,jdbcType=INTEGER,mode=IN},
+    			#{strComment,jdbcType=VARCHAR,mode=IN},
+    			#{error,jdbcType=INTEGER,mode=OUT},
+    			#{suppliesName,jdbcType=VARCHAR,mode=IN}
+    		)}
+    	]]>
+	</select>
+
+  	<select id="newChargingofmissappoint" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+    		{call Charge_NewChargingofmissappoint_Proc(
+    			#{bookingId,jdbcType=BIGINT,mode=IN},
+    			#{userId,jdbcType=INTEGER,mode=IN},
+    			null,null,
+    			#{error,jdbcType=INTEGER,mode=OUT}
+    		)}
+    	]]>
+	</select>
+
+  	<select id="terminalIDFormation" parameterType="java.util.Map" statementType="CALLABLE">
+    	<![CDATA[
+    		{#{cardSwipeDispID,jdbcType=VARCHAR,mode=OUT} = call TerminalIDFormation(
+    			#{eventContent,jdbcType=BIGINT,mode=IN}
+    		)}
+    	]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TuserintrainingsessionMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tuserintrainingsession" >
+    <id column="SessionID" property="sessionid" jdbcType="BIGINT" />
+    <id column="UserID" property="userid" jdbcType="INTEGER" />
+    <id column="CardSerial" property="cardserial" jdbcType="INTEGER" />
+    <id column="CheckedInTime" property="checkedintime" jdbcType="TIMESTAMP" />
+    <result column="UserInfo" property="userinfo" jdbcType="VARCHAR" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="Manul" property="manul" jdbcType="BIT" />
+    <result column="DeletedTime" property="deletedtime" jdbcType="TIMESTAMP" />
+    <result column="DeletedID" property="deletedid" jdbcType="INTEGER" />
+    <result column="CreatedID" property="createdid" jdbcType="INTEGER" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="UserPosition" property="userposition" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SessionID, UserID, CardSerial, CheckedInTime, UserInfo, InstrumentID, Manul, DeletedTime, 
+    DeletedID, CreatedID, CreatedTime, UserPosition
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TuserintrainingsessionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tuserintrainingsession
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TuserintrainingsessionKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tuserintrainingsession
+    where SessionID = #{sessionid,jdbcType=BIGINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and CardSerial = #{cardserial,jdbcType=INTEGER}
+      and CheckedInTime = #{checkedintime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.TuserintrainingsessionKey" >
+    delete from tuserintrainingsession
+    where SessionID = #{sessionid,jdbcType=BIGINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and CardSerial = #{cardserial,jdbcType=INTEGER}
+      and CheckedInTime = #{checkedintime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tuserintrainingsession" >
+    insert into tuserintrainingsession (SessionID, UserID, CardSerial, 
+      CheckedInTime, UserInfo, InstrumentID, 
+      Manul, DeletedTime, DeletedID, 
+      CreatedID, CreatedTime, UserPosition
+      )
+    values (#{sessionid,jdbcType=BIGINT}, #{userid,jdbcType=INTEGER}, #{cardserial,jdbcType=INTEGER}, 
+      #{checkedintime,jdbcType=TIMESTAMP}, #{userinfo,jdbcType=VARCHAR}, #{instrumentid,jdbcType=INTEGER}, 
+      #{manul,jdbcType=BIT}, #{deletedtime,jdbcType=TIMESTAMP}, #{deletedid,jdbcType=INTEGER}, 
+      #{createdid,jdbcType=INTEGER}, #{createdtime,jdbcType=TIMESTAMP}, #{userposition,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tuserintrainingsession" >
+    insert into tuserintrainingsession
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sessionid != null" >
+        SessionID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="cardserial != null" >
+        CardSerial,
+      </if>
+      <if test="checkedintime != null" >
+        CheckedInTime,
+      </if>
+      <if test="userinfo != null" >
+        UserInfo,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="manul != null" >
+        Manul,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="userposition != null" >
+        UserPosition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sessionid != null" >
+        #{sessionid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="cardserial != null" >
+        #{cardserial,jdbcType=INTEGER},
+      </if>
+      <if test="checkedintime != null" >
+        #{checkedintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userinfo != null" >
+        #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="manul != null" >
+        #{manul,jdbcType=BIT},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userposition != null" >
+        #{userposition,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="replaceSelective" parameterType="com.slark.pengder.mybatis.model.Tuserintrainingsession" >
+    replace into tuserintrainingsession
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sessionid != null" >
+        SessionID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="cardserial != null" >
+        CardSerial,
+      </if>
+      <if test="checkedintime != null" >
+        CheckedInTime,
+      </if>
+      <if test="userinfo != null" >
+        UserInfo,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="manul != null" >
+        Manul,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="userposition != null" >
+        UserPosition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sessionid != null" >
+        #{sessionid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="cardserial != null" >
+        #{cardserial,jdbcType=INTEGER},
+      </if>
+      <if test="checkedintime != null" >
+        #{checkedintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userinfo != null" >
+        #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="manul != null" >
+        #{manul,jdbcType=BIT},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userposition != null" >
+        #{userposition,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TuserintrainingsessionExample" resultType="java.lang.Integer" >
+    select count(*) from tuserintrainingsession
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tuserintrainingsession" >
+    update tuserintrainingsession
+    <set >
+      <if test="userinfo != null" >
+        UserInfo = #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="manul != null" >
+        Manul = #{manul,jdbcType=BIT},
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        DeletedID = #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="createdid != null" >
+        CreatedID = #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userposition != null" >
+        UserPosition = #{userposition,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where SessionID = #{sessionid,jdbcType=BIGINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and CardSerial = #{cardserial,jdbcType=INTEGER}
+      and CheckedInTime = #{checkedintime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tuserintrainingsession" >
+    update tuserintrainingsession
+    set UserInfo = #{userinfo,jdbcType=VARCHAR},
+      InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      Manul = #{manul,jdbcType=BIT},
+      DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      DeletedID = #{deletedid,jdbcType=INTEGER},
+      CreatedID = #{createdid,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      UserPosition = #{userposition,jdbcType=SMALLINT}
+    where SessionID = #{sessionid,jdbcType=BIGINT}
+      and UserID = #{userid,jdbcType=INTEGER}
+      and CardSerial = #{cardserial,jdbcType=INTEGER}
+      and CheckedInTime = #{checkedintime,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

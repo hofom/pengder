@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TrecordofuserMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Trecordofuser" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="BootTime" property="boottime" jdbcType="INTEGER" />
+    <result column="Record" property="record" jdbcType="INTEGER" />
+    <result column="AccountID" property="accountid" jdbcType="INTEGER" />
+    <result column="GroupID" property="groupid" jdbcType="INTEGER" />
+    <result column="Discount" property="discount" jdbcType="INTEGER" />
+    <result column="Invoice" property="invoice" jdbcType="SMALLINT" />
+    <result column="BlackList" property="blacklist" jdbcType="SMALLINT" />
+    <result column="InBlackList" property="inblacklist" jdbcType="BIT" />
+    <result column="QualificationDiscount" property="qualificationdiscount" jdbcType="INTEGER" />
+    <result column="ApparatusDiscount" property="apparatusdiscount" jdbcType="INTEGER" />
+    <result column="ManualAdd" property="manualadd" jdbcType="TINYINT" />
+    <result column="PartitionID" property="partitionid" jdbcType="TINYINT" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="GroupDiscount" property="groupdiscount" jdbcType="INTEGER" />
+    <result column="ShouldCharge" property="shouldcharge" jdbcType="DECIMAL" />
+    <result column="HaveCharge" property="havecharge" jdbcType="DECIMAL" />
+    <result column="Credit" property="credit" jdbcType="SMALLINT" />
+    <result column="CreatedID" property="createdid" jdbcType="INTEGER" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="ModifiedID" property="modifiedid" jdbcType="INTEGER" />
+    <result column="ModifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
+    <result column="DeletedID" property="deletedid" jdbcType="INTEGER" />
+    <result column="DeletedTime" property="deletedtime" jdbcType="TIMESTAMP" />
+    <result column="RelevantProfile" property="relevantprofile" jdbcType="INTEGER" />
+    <result column="CardID" property="cardid" jdbcType="INTEGER" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="ManagerAveServ" property="manageraveserv" jdbcType="INTEGER" />
+    <result column="UserAttritionType" property="userattritiontype" jdbcType="INTEGER" />
+    <result column="UserOrganization" property="userorganization" jdbcType="VARCHAR" />
+    <result column="Position" property="position" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            and CardID IS NOT NULL
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, StartTime, EndTime, BootTime, Record, AccountID, GroupID, Discount, Invoice, 
+    BlackList, InBlackList, QualificationDiscount, ApparatusDiscount, ManualAdd, PartitionID, 
+    UserID, GroupDiscount, ShouldCharge, HaveCharge, Credit, CreatedID, CreatedTime, 
+    ModifiedID, ModifiedTime, DeletedID, DeletedTime, RelevantProfile, CardID, InstrumentID, 
+    Comment, ManagerAveServ, UserAttritionType, UserOrganization, Position
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TrecordofuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from trecordofuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from trecordofuser
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from trecordofuser
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Trecordofuser" >
+    insert into trecordofuser (ID, StartTime, EndTime, 
+      BootTime, Record, AccountID, 
+      GroupID, Discount, Invoice, 
+      BlackList, InBlackList, QualificationDiscount, 
+      ApparatusDiscount, ManualAdd, PartitionID, 
+      UserID, GroupDiscount, ShouldCharge, 
+      HaveCharge, Credit, CreatedID, 
+      CreatedTime, ModifiedID, ModifiedTime, 
+      DeletedID, DeletedTime, RelevantProfile, 
+      CardID, InstrumentID, Comment, 
+      ManagerAveServ, UserAttritionType, UserOrganization, 
+      Position)
+    values (#{id,jdbcType=BIGINT}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{boottime,jdbcType=INTEGER}, #{record,jdbcType=INTEGER}, #{accountid,jdbcType=INTEGER}, 
+      #{groupid,jdbcType=INTEGER}, #{discount,jdbcType=INTEGER}, #{invoice,jdbcType=SMALLINT}, 
+      #{blacklist,jdbcType=SMALLINT}, #{inblacklist,jdbcType=BIT}, #{qualificationdiscount,jdbcType=INTEGER}, 
+      #{apparatusdiscount,jdbcType=INTEGER}, #{manualadd,jdbcType=TINYINT}, #{partitionid,jdbcType=TINYINT}, 
+      #{userid,jdbcType=INTEGER}, #{groupdiscount,jdbcType=INTEGER}, #{shouldcharge,jdbcType=DECIMAL}, 
+      #{havecharge,jdbcType=DECIMAL}, #{credit,jdbcType=SMALLINT}, #{createdid,jdbcType=INTEGER}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{modifiedid,jdbcType=INTEGER}, #{modifiedtime,jdbcType=TIMESTAMP}, 
+      #{deletedid,jdbcType=INTEGER}, #{deletedtime,jdbcType=TIMESTAMP}, #{relevantprofile,jdbcType=INTEGER}, 
+      #{cardid,jdbcType=INTEGER}, #{instrumentid,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{manageraveserv,jdbcType=INTEGER}, #{userattritiontype,jdbcType=INTEGER}, #{userorganization,jdbcType=VARCHAR}, 
+      #{position,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Trecordofuser" >
+    insert into trecordofuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="boottime != null" >
+        BootTime,
+      </if>
+      <if test="record != null" >
+        Record,
+      </if>
+      <if test="accountid != null" >
+        AccountID,
+      </if>
+      <if test="groupid != null" >
+        GroupID,
+      </if>
+      <if test="discount != null" >
+        Discount,
+      </if>
+      <if test="invoice != null" >
+        Invoice,
+      </if>
+      <if test="blacklist != null" >
+        BlackList,
+      </if>
+      <if test="inblacklist != null" >
+        InBlackList,
+      </if>
+      <if test="qualificationdiscount != null" >
+        QualificationDiscount,
+      </if>
+      <if test="apparatusdiscount != null" >
+        ApparatusDiscount,
+      </if>
+      <if test="manualadd != null" >
+        ManualAdd,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="groupdiscount != null" >
+        GroupDiscount,
+      </if>
+      <if test="shouldcharge != null" >
+        ShouldCharge,
+      </if>
+      <if test="havecharge != null" >
+        HaveCharge,
+      </if>
+      <if test="credit != null" >
+        Credit,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+      <if test="relevantprofile != null" >
+        RelevantProfile,
+      </if>
+      <if test="cardid != null" >
+        CardID,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="manageraveserv != null" >
+        ManagerAveServ,
+      </if>
+      <if test="userattritiontype != null" >
+        UserAttritionType,
+      </if>
+      <if test="userorganization != null" >
+        UserOrganization,
+      </if>
+      <if test="position != null" >
+        Position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boottime != null" >
+        #{boottime,jdbcType=INTEGER},
+      </if>
+      <if test="record != null" >
+        #{record,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="invoice != null" >
+        #{invoice,jdbcType=SMALLINT},
+      </if>
+      <if test="blacklist != null" >
+        #{blacklist,jdbcType=SMALLINT},
+      </if>
+      <if test="inblacklist != null" >
+        #{inblacklist,jdbcType=BIT},
+      </if>
+      <if test="qualificationdiscount != null" >
+        #{qualificationdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="apparatusdiscount != null" >
+        #{apparatusdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="manualadd != null" >
+        #{manualadd,jdbcType=TINYINT},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="groupdiscount != null" >
+        #{groupdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="shouldcharge != null" >
+        #{shouldcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="havecharge != null" >
+        #{havecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=SMALLINT},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relevantprofile != null" >
+        #{relevantprofile,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="manageraveserv != null" >
+        #{manageraveserv,jdbcType=INTEGER},
+      </if>
+      <if test="userattritiontype != null" >
+        #{userattritiontype,jdbcType=INTEGER},
+      </if>
+      <if test="userorganization != null" >
+        #{userorganization,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TrecordofuserExample" resultType="java.lang.Integer" >
+    select count(*) from trecordofuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Trecordofuser" >
+    update trecordofuser
+    <set >
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boottime != null" >
+        BootTime = #{boottime,jdbcType=INTEGER},
+      </if>
+      <if test="record != null" >
+        Record = #{record,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        AccountID = #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null" >
+        GroupID = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        Discount = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="invoice != null" >
+        Invoice = #{invoice,jdbcType=SMALLINT},
+      </if>
+      <if test="blacklist != null" >
+        BlackList = #{blacklist,jdbcType=SMALLINT},
+      </if>
+      <if test="inblacklist != null" >
+        InBlackList = #{inblacklist,jdbcType=BIT},
+      </if>
+      <if test="qualificationdiscount != null" >
+        QualificationDiscount = #{qualificationdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="apparatusdiscount != null" >
+        ApparatusDiscount = #{apparatusdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="manualadd != null" >
+        ManualAdd = #{manualadd,jdbcType=TINYINT},
+      </if>
+      <if test="partitionid != null" >
+        PartitionID = #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="groupdiscount != null" >
+        GroupDiscount = #{groupdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="shouldcharge != null" >
+        ShouldCharge = #{shouldcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="havecharge != null" >
+        HaveCharge = #{havecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="credit != null" >
+        Credit = #{credit,jdbcType=SMALLINT},
+      </if>
+      <if test="createdid != null" >
+        CreatedID = #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        DeletedID = #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relevantprofile != null" >
+        RelevantProfile = #{relevantprofile,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null" >
+        CardID = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="manageraveserv != null" >
+        ManagerAveServ = #{manageraveserv,jdbcType=INTEGER},
+      </if>
+      <if test="userattritiontype != null" >
+        UserAttritionType = #{userattritiontype,jdbcType=INTEGER},
+      </if>
+      <if test="userorganization != null" >
+        UserOrganization = #{userorganization,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        Position = #{position,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Trecordofuser" >
+    update trecordofuser
+    set StartTime = #{starttime,jdbcType=TIMESTAMP},
+      EndTime = #{endtime,jdbcType=TIMESTAMP},
+      BootTime = #{boottime,jdbcType=INTEGER},
+      Record = #{record,jdbcType=INTEGER},
+      AccountID = #{accountid,jdbcType=INTEGER},
+      GroupID = #{groupid,jdbcType=INTEGER},
+      Discount = #{discount,jdbcType=INTEGER},
+      Invoice = #{invoice,jdbcType=SMALLINT},
+      BlackList = #{blacklist,jdbcType=SMALLINT},
+      InBlackList = #{inblacklist,jdbcType=BIT},
+      QualificationDiscount = #{qualificationdiscount,jdbcType=INTEGER},
+      ApparatusDiscount = #{apparatusdiscount,jdbcType=INTEGER},
+      ManualAdd = #{manualadd,jdbcType=TINYINT},
+      PartitionID = #{partitionid,jdbcType=TINYINT},
+      UserID = #{userid,jdbcType=INTEGER},
+      GroupDiscount = #{groupdiscount,jdbcType=INTEGER},
+      ShouldCharge = #{shouldcharge,jdbcType=DECIMAL},
+      HaveCharge = #{havecharge,jdbcType=DECIMAL},
+      Credit = #{credit,jdbcType=SMALLINT},
+      CreatedID = #{createdid,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      DeletedID = #{deletedid,jdbcType=INTEGER},
+      DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      RelevantProfile = #{relevantprofile,jdbcType=INTEGER},
+      CardID = #{cardid,jdbcType=INTEGER},
+      InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      Comment = #{comment,jdbcType=VARCHAR},
+      ManagerAveServ = #{manageraveserv,jdbcType=INTEGER},
+      UserAttritionType = #{userattritiontype,jdbcType=INTEGER},
+      UserOrganization = #{userorganization,jdbcType=VARCHAR},
+      Position = #{position,jdbcType=SMALLINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

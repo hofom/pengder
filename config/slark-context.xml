@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task-3.0.xsd
+            http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util-3.0.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/jee
+            http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+            http://cxf.apache.org/jaxws 
+            http://cxf.apache.org/schemas/jaxws.xsd"
+       default-lazy-init="false">
+    <!--${pender_root}/props/jdbc.properties -->
+    <context:property-placeholder ignore-resource-not-found="true"
+                                  location="file:${user.dir}/config/props/*.properties" />
+    <!--不用placeholder来加载属性配置文件。这个有一定的限制-->
+    <util:properties id="slarkProps" location="file:${user.dir}/config/props/jdbc.properties,
+                                                file:${user.dir}/config/props/CommServer-Config.properties,
+                                                file:${user.dir}/config/props/certServer-Config.properties" />
+    <context:component-scan base-package="com.slark.pengder.service"/>
+    <context:component-scan base-package="com.slark.pengder.service.notice"/>
+    <context:component-scan base-package="com.slark.pengder.service.receiver"/>
+    <context:component-scan base-package="com.slark.pengder.test"/>
+    <context:component-scan base-package="com.slark.pengder.task"/>
+    <context:component-scan base-package="com.slark.pengder.net"/>
+    <context:component-scan base-package="com.slark.pengder.tools"/>
+    <context:component-scan base-package="com.slark.pengder.ws"/>
+    <context:component-scan base-package="com.slark.util.system"/>
+    <context:annotation-config/>
+    <task:annotation-driven/>
+    <!--<context:property-override />-->
+    <!-- 启动任务注解  id="propsReader"-->
+   <!-- <task:scheduler/> -->
+    <task:scheduled-tasks>
+    	<!-- 临时卡任务，每天0点 -->
+        <task:scheduled ref="bookingTask" method="bookingNoCard" cron="0 0 0 * * *"/>
+        <!-- 预约失效处理，每小时0分开始，间隔30分钟 -->
+        <task:scheduled ref="bookingTask" method="bookingOver" cron="0 0/30 * * * *"/>
+        <!-- 账户通知，每天0点 -->
+        <task:scheduled ref="accountTask" method="check" cron="0 0 0 * * *"/>  
+        <!-- 惩罚期通知，每天0点 -->
+        <task:scheduled ref="punishTask" method="check" cron="0 0 0 * * *"/>  
+        <!-- 同步数据到仪器，100ms一次 -->
+        <task:scheduled ref="syncTask" method="sync" fixed-delay="100"/>  
+        <!-- 检查数据库待同步任务,每小时0分开始，间隔30分钟 -->
+        <task:scheduled ref="syncTask" method="checkDb" cron="0 0/30 * * * *"/>  
+        <!-- 检查仪器超时、系统超时，每分钟 -->
+        <task:scheduled ref="systemStateTask" method="check" cron="0 0/1 * * * *"/>  
+    </task:scheduled-tasks>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${mysql.jdbc.driver}" />
+        <property name="url" value="${mysql.jdbc.url}" />
+        <property name="username" value="${mysql.jdbc.username}" />
+        <property name="password" value="${mysql.jdbc.password}" />
+        <!-- 是否对sql进行自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+    </bean>
+    <!-- 通过注解的方式获得property中的值 -->
+
+    <!--
+    <bean id="propsReader"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>file:${user.dir}/config/props/CommServer-Config.properties</value>
+            </list>
+        </property>
+    </bean>
+    -->
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="file:${user.dir}/config/mapper/*.xml" />
+        <!-- <property name="mapperLocations" value="classpath:com/slark/pengder/mybatis/mapper/*.xml" /> -->
+        <property name="typeAliasesPackage" value="com.slark.pengder.mybatis.model" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.slark.pengder.mybatis.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+
+    </bean>
+
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+
+</beans>

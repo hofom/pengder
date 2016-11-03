@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TuserrightMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tuserright" >
+    <id column="UserID" property="userid" jdbcType="INTEGER" />
+    <id column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="UserRightID" property="userrightid" jdbcType="SMALLINT" />
+    <result column="TemporaryRightID" property="temporaryrightid" jdbcType="SMALLINT" />
+    <result column="ExpireTime" property="expiretime" jdbcType="TIMESTAMP" />
+    <result column="GrantedID" property="grantedid" jdbcType="INTEGER" />
+    <result column="GrantedTime" property="grantedtime" jdbcType="TIMESTAMP" />
+    <result column="ReceiveSynTick" property="receivesyntick" jdbcType="INTEGER" />
+    <result column="ApplySynTick" property="applysyntick" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UserID, InstrumentID, UserRightID, TemporaryRightID, ExpireTime, GrantedID, GrantedTime, 
+    ReceiveSynTick, ApplySynTick
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TuserrightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tuserright
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectNewByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TuserrightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tuserright
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+      and ApplySynTick>=ReceiveSynTick 
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectNewDisId" resultMap="BaseResultMap">
+    select distinct InstrumentID from tuserright where ApplySynTick>=ReceiveSynTick
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TuserrightKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tuserright
+    where UserID = #{userid,jdbcType=INTEGER}
+      and InstrumentID = #{instrumentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.TuserrightKey" >
+    delete from tuserright
+    where UserID = #{userid,jdbcType=INTEGER}
+      and InstrumentID = #{instrumentid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tuserright" >
+    insert into tuserright (UserID, InstrumentID, UserRightID, 
+      TemporaryRightID, ExpireTime, GrantedID, 
+      GrantedTime, ReceiveSynTick, ApplySynTick
+      )
+    values (#{userid,jdbcType=INTEGER}, #{instrumentid,jdbcType=INTEGER}, #{userrightid,jdbcType=SMALLINT}, 
+      #{temporaryrightid,jdbcType=SMALLINT}, #{expiretime,jdbcType=TIMESTAMP}, #{grantedid,jdbcType=INTEGER}, 
+      #{grantedtime,jdbcType=TIMESTAMP}, #{receivesyntick,jdbcType=INTEGER}, #{applysyntick,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tuserright" >
+    insert into tuserright
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="userrightid != null" >
+        UserRightID,
+      </if>
+      <if test="temporaryrightid != null" >
+        TemporaryRightID,
+      </if>
+      <if test="expiretime != null" >
+        ExpireTime,
+      </if>
+      <if test="grantedid != null" >
+        GrantedID,
+      </if>
+      <if test="grantedtime != null" >
+        GrantedTime,
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick,
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="userrightid != null" >
+        #{userrightid,jdbcType=SMALLINT},
+      </if>
+      <if test="temporaryrightid != null" >
+        #{temporaryrightid,jdbcType=SMALLINT},
+      </if>
+      <if test="expiretime != null" >
+        #{expiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantedid != null" >
+        #{grantedid,jdbcType=INTEGER},
+      </if>
+      <if test="grantedtime != null" >
+        #{grantedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivesyntick != null" >
+        #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="applysyntick != null" >
+        #{applysyntick,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TuserrightExample" resultType="java.lang.Integer" >
+    select count(*) from tuserright
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tuserright" >
+    update tuserright
+    <set >
+      <if test="userrightid != null" >
+        UserRightID = #{userrightid,jdbcType=SMALLINT},
+      </if>
+      <if test="temporaryrightid != null" >
+        TemporaryRightID = #{temporaryrightid,jdbcType=SMALLINT},
+      </if>
+      <if test="expiretime != null" >
+        ExpireTime = #{expiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grantedid != null" >
+        GrantedID = #{grantedid,jdbcType=INTEGER},
+      </if>
+      <if test="grantedtime != null" >
+        GrantedTime = #{grantedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      </if>
+    </set>
+    where UserID = #{userid,jdbcType=INTEGER}
+      and InstrumentID = #{instrumentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tuserright" >
+    update tuserright
+    set UserRightID = #{userrightid,jdbcType=SMALLINT},
+      TemporaryRightID = #{temporaryrightid,jdbcType=SMALLINT},
+      ExpireTime = #{expiretime,jdbcType=TIMESTAMP},
+      GrantedID = #{grantedid,jdbcType=INTEGER},
+      GrantedTime = #{grantedtime,jdbcType=TIMESTAMP},
+      ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      ApplySynTick = #{applysyntick,jdbcType=INTEGER}
+    where UserID = #{userid,jdbcType=INTEGER}
+      and InstrumentID = #{instrumentid,jdbcType=INTEGER}
+  </update>
+</mapper>

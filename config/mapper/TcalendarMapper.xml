@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TcalendarMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tcalendar" >
+    <id column="Calendar" property="calendar" jdbcType="DATE" />
+    <result column="IsHoliday" property="isholiday" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Calendar, IsHoliday
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TcalendarExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tcalendar
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="select1Day" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tcalendar
+    where Calendar > SUBDATE(now(), INTERVAL 1 DAY)
+  </select>
+  <select id="selectSynDay" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <![CDATA[
+	SELECT
+		tcalendar.Calendar,
+		tcalendar.IsHoliday AS IsHoliday
+	FROM
+		(
+			SELECT
+				NeedSynDataID AS YEAR
+			FROM
+				tneedsyndata
+			WHERE
+				(
+					tneedsyndata.NeedSynDataType = 318
+				)
+			AND (
+				tneedsyndata.ApplySynTick >= tneedsyndata.ReceiveSynTick
+			)
+			AND (
+				tneedsyndata.TargetInstrumentID =#{targetInstrumentID}
+			)
+		) AS tmp_year
+	INNER JOIN tcalendar ON tmp_year. YEAR = YEAR (tcalendar.Calendar)
+  ]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcalendar
+    where Calendar = #{calendar,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+    delete from tcalendar
+    where Calendar = #{calendar,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tcalendar" >
+    insert into tcalendar (Calendar, IsHoliday)
+    values (#{calendar,jdbcType=DATE}, #{isholiday,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tcalendar" >
+    insert into tcalendar
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="calendar != null" >
+        Calendar,
+      </if>
+      <if test="isholiday != null" >
+        IsHoliday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="calendar != null" >
+        #{calendar,jdbcType=DATE},
+      </if>
+      <if test="isholiday != null" >
+        #{isholiday,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TcalendarExample" resultType="java.lang.Integer" >
+    select count(*) from tcalendar
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tcalendar" >
+    update tcalendar
+    <set >
+      <if test="isholiday != null" >
+        IsHoliday = #{isholiday,jdbcType=BIT},
+      </if>
+    </set>
+    where Calendar = #{calendar,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tcalendar" >
+    update tcalendar
+    set IsHoliday = #{isholiday,jdbcType=BIT}
+    where Calendar = #{calendar,jdbcType=DATE}
+  </update>
+</mapper>

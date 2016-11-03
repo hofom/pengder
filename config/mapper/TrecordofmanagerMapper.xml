@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TrecordofmanagerMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Trecordofmanager" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="BootTime" property="boottime" jdbcType="INTEGER" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="Type" property="type" jdbcType="SMALLINT" />
+    <result column="ManualAdd" property="manualadd" jdbcType="BIT" />
+    <result column="CreatedID" property="createdid" jdbcType="INTEGER" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+    <result column="ModifiedID" property="modifiedid" jdbcType="INTEGER" />
+    <result column="ModifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
+    <result column="DeletedID" property="deletedid" jdbcType="INTEGER" />
+    <result column="DeletedTime" property="deletedtime" jdbcType="TIMESTAMP" />
+    <result column="PartitionID" property="partitionid" jdbcType="TINYINT" />
+    <result column="SynTime" property="syntime" jdbcType="TIMESTAMP" />
+    <result column="CardID" property="cardid" jdbcType="INTEGER" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="ConvertUserRecordID" property="convertuserrecordid" jdbcType="BIGINT" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="TrainingPro" property="trainingpro" jdbcType="VARCHAR" />
+    <result column="ManagerAveServ" property="manageraveserv" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, StartTime, EndTime, BootTime, UserID, Type, ManualAdd, CreatedID, CreatedTime, 
+    ModifiedID, ModifiedTime, DeletedID, DeletedTime, PartitionID, SynTime, CardID, InstrumentID, 
+    ConvertUserRecordID, Content, Comment, TrainingPro, ManagerAveServ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TrecordofmanagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from trecordofmanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from trecordofmanager
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from trecordofmanager
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Trecordofmanager" >
+    insert into trecordofmanager (ID, StartTime, EndTime, 
+      BootTime, UserID, Type, 
+      ManualAdd, CreatedID, CreatedTime, 
+      ModifiedID, ModifiedTime, DeletedID, 
+      DeletedTime, PartitionID, SynTime, 
+      CardID, InstrumentID, ConvertUserRecordID, 
+      Content, Comment, TrainingPro, 
+      ManagerAveServ)
+    values (#{id,jdbcType=BIGINT}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{boottime,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{type,jdbcType=SMALLINT}, 
+      #{manualadd,jdbcType=BIT}, #{createdid,jdbcType=INTEGER}, #{createdtime,jdbcType=TIMESTAMP}, 
+      #{modifiedid,jdbcType=INTEGER}, #{modifiedtime,jdbcType=TIMESTAMP}, #{deletedid,jdbcType=INTEGER}, 
+      #{deletedtime,jdbcType=TIMESTAMP}, #{partitionid,jdbcType=TINYINT}, #{syntime,jdbcType=TIMESTAMP}, 
+      #{cardid,jdbcType=INTEGER}, #{instrumentid,jdbcType=INTEGER}, #{convertuserrecordid,jdbcType=BIGINT}, 
+      #{content,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{trainingpro,jdbcType=VARCHAR}, 
+      #{manageraveserv,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Trecordofmanager" >
+    insert into trecordofmanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="boottime != null" >
+        BootTime,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="manualadd != null" >
+        ManualAdd,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+      <if test="syntime != null" >
+        SynTime,
+      </if>
+      <if test="cardid != null" >
+        CardID,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="convertuserrecordid != null" >
+        ConvertUserRecordID,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="trainingpro != null" >
+        TrainingPro,
+      </if>
+      <if test="manageraveserv != null" >
+        ManagerAveServ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boottime != null" >
+        #{boottime,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="manualadd != null" >
+        #{manualadd,jdbcType=BIT},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="syntime != null" >
+        #{syntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="convertuserrecordid != null" >
+        #{convertuserrecordid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingpro != null" >
+        #{trainingpro,jdbcType=VARCHAR},
+      </if>
+      <if test="manageraveserv != null" >
+        #{manageraveserv,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="replaceSelective" parameterType="com.slark.pengder.mybatis.model.Trecordofmanager" >
+    replace into trecordofmanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="boottime != null" >
+        BootTime,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="manualadd != null" >
+        ManualAdd,
+      </if>
+      <if test="createdid != null" >
+        CreatedID,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="deletedid != null" >
+        DeletedID,
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime,
+      </if>
+      <if test="partitionid != null" >
+        PartitionID,
+      </if>
+      <if test="syntime != null" >
+        SynTime,
+      </if>
+      <if test="cardid != null" >
+        CardID,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="convertuserrecordid != null" >
+        ConvertUserRecordID,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="trainingpro != null" >
+        TrainingPro,
+      </if>
+      <if test="manageraveserv != null" >
+        ManagerAveServ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boottime != null" >
+        #{boottime,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="manualadd != null" >
+        #{manualadd,jdbcType=BIT},
+      </if>
+      <if test="createdid != null" >
+        #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partitionid != null" >
+        #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="syntime != null" >
+        #{syntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="convertuserrecordid != null" >
+        #{convertuserrecordid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingpro != null" >
+        #{trainingpro,jdbcType=VARCHAR},
+      </if>
+      <if test="manageraveserv != null" >
+        #{manageraveserv,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TrecordofmanagerExample" resultType="java.lang.Integer" >
+    select count(*) from trecordofmanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Trecordofmanager" >
+    update trecordofmanager
+    <set >
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boottime != null" >
+        BootTime = #{boottime,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        Type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="manualadd != null" >
+        ManualAdd = #{manualadd,jdbcType=BIT},
+      </if>
+      <if test="createdid != null" >
+        CreatedID = #{createdid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedid != null" >
+        DeletedID = #{deletedid,jdbcType=INTEGER},
+      </if>
+      <if test="deletedtime != null" >
+        DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partitionid != null" >
+        PartitionID = #{partitionid,jdbcType=TINYINT},
+      </if>
+      <if test="syntime != null" >
+        SynTime = #{syntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardid != null" >
+        CardID = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="convertuserrecordid != null" >
+        ConvertUserRecordID = #{convertuserrecordid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingpro != null" >
+        TrainingPro = #{trainingpro,jdbcType=VARCHAR},
+      </if>
+      <if test="manageraveserv != null" >
+        ManagerAveServ = #{manageraveserv,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Trecordofmanager" >
+    update trecordofmanager
+    set StartTime = #{starttime,jdbcType=TIMESTAMP},
+      EndTime = #{endtime,jdbcType=TIMESTAMP},
+      BootTime = #{boottime,jdbcType=INTEGER},
+      UserID = #{userid,jdbcType=INTEGER},
+      Type = #{type,jdbcType=SMALLINT},
+      ManualAdd = #{manualadd,jdbcType=BIT},
+      CreatedID = #{createdid,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      DeletedID = #{deletedid,jdbcType=INTEGER},
+      DeletedTime = #{deletedtime,jdbcType=TIMESTAMP},
+      PartitionID = #{partitionid,jdbcType=TINYINT},
+      SynTime = #{syntime,jdbcType=TIMESTAMP},
+      CardID = #{cardid,jdbcType=INTEGER},
+      InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      ConvertUserRecordID = #{convertuserrecordid,jdbcType=BIGINT},
+      Content = #{content,jdbcType=VARCHAR},
+      Comment = #{comment,jdbcType=VARCHAR},
+      TrainingPro = #{trainingpro,jdbcType=VARCHAR},
+      ManagerAveServ = #{manageraveserv,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

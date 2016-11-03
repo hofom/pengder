@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Class-Path: lib/geronimo-jta_1.1_spec-1.1.jar lib/netty-all-5.0.0.Alph
+ a2.jar lib/axis2-transport-http-1.6.2.jar lib/geronimo-activation_1.1
+ _spec-1.0.2.jar lib/axis2-kernel-1.6.2.jar lib/apache-mime4j-core-0.7
+ .2.jar lib/spring-expression-4.3.0.RELEASE.jar lib/wsdl4j-1.6.2.jar l
+ ib/mybatis-3.4.1.jar lib/jsr311-api-1.0.jar lib/spring-tx-4.3.0.RELEA
+ SE.jar lib/commons-pool-1.5.4.jar lib/jaxen-1.1.3.jar lib/spring-jdbc
+ -4.3.0.RELEASE.jar lib/spring-core-4.3.0.RELEASE.jar lib/spring-conte
+ xt-4.3.0.RELEASE.jar lib/servlet-api-2.3.jar lib/woden-impl-dom-1.0M9
+ .jar lib/commons-dbcp-1.4.jar lib/commons-httpclient-3.1.jar lib/axio
+ m-api-1.2.13.jar lib/httpcore-4.0.jar lib/neethi-3.0.2.jar lib/XmlSch
+ ema-1.4.7.jar lib/woden-api-1.0M9.jar lib/geronimo-ws-metadata_2.0_sp
+ ec-1.1.2.jar lib/commons-logging-1.2.jar lib/geronimo-javamail_1.4_sp
+ ec-1.7.1.jar lib/log4j-1.2.17.jar lib/wstx-asl-3.2.9.jar lib/commons-
+ fileupload-1.2.jar lib/axis2-transport-local-1.6.2.jar lib/commons-co
+ dec-1.2.jar lib/geronimo-stax-api_1.0_spec-1.0.1.jar lib/spring-beans
+ -4.3.0.RELEASE.jar lib/activation-1.1.1.jar lib/mybatis-spring-1.3.0.
+ jar lib/protobuf-java-2.5.0.jar lib/mysql-connector-java-5.1.37.jar l
+ ib/freemarker-2.3.16.jar lib/axiom-impl-1.2.13.jar lib/axis2-adb-1.6.
+ 2.jar lib/spring-aop-4.3.0.RELEASE.jar lib/mail-1.4.5.jar lib/woden-i
+ mpl-commons-1.0M9.jar lib/commons-email-1.3.jar
+Main-Class: com.slark.CommServer
+

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TusereventofterminalMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tusereventofterminal" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="TerminalMAC" property="terminalmac" jdbcType="CHAR" />
+    <result column="InstrumentID" property="instrumentid" jdbcType="INTEGER" />
+    <result column="CardSerial" property="cardserial" jdbcType="INTEGER" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="SynTime" property="syntime" jdbcType="TIMESTAMP" />
+    <result column="UnknownCardUser" property="unknowncarduser" jdbcType="VARCHAR" />
+    <result column="UnknownCardNo" property="unknowncardno" jdbcType="VARCHAR" />
+    <result column="CardType" property="cardtype" jdbcType="SMALLINT" />
+    <result column="GroupID" property="groupid" jdbcType="INTEGER" />
+    <result column="ActionTypeID" property="actiontypeid" jdbcType="SMALLINT" />
+    <result column="ActionResultID" property="actionresultid" jdbcType="SMALLINT" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="CreatedTime" property="createdtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, TerminalMAC, InstrumentID, CardSerial, UserID, SynTime, UnknownCardUser, UnknownCardNo, 
+    CardType, GroupID, ActionTypeID, ActionResultID, Comment, CreatedTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TusereventofterminalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tusereventofterminal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tusereventofterminal
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tusereventofterminal
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tusereventofterminal" >
+    insert into tusereventofterminal (ID, TerminalMAC, InstrumentID, 
+      CardSerial, UserID, SynTime, 
+      UnknownCardUser, UnknownCardNo, CardType, 
+      GroupID, ActionTypeID, ActionResultID, 
+      Comment, CreatedTime)
+    values (#{id,jdbcType=BIGINT}, #{terminalmac,jdbcType=CHAR}, #{instrumentid,jdbcType=INTEGER}, 
+      #{cardserial,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{syntime,jdbcType=TIMESTAMP}, 
+      #{unknowncarduser,jdbcType=VARCHAR}, #{unknowncardno,jdbcType=VARCHAR}, #{cardtype,jdbcType=SMALLINT}, 
+      #{groupid,jdbcType=INTEGER}, #{actiontypeid,jdbcType=SMALLINT}, #{actionresultid,jdbcType=SMALLINT}, 
+      #{comment,jdbcType=VARCHAR}, #{createdtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tusereventofterminal" >
+    insert into tusereventofterminal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="terminalmac != null" >
+        TerminalMAC,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="cardserial != null" >
+        CardSerial,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="syntime != null" >
+        SynTime,
+      </if>
+      <if test="unknowncarduser != null" >
+        UnknownCardUser,
+      </if>
+      <if test="unknowncardno != null" >
+        UnknownCardNo,
+      </if>
+      <if test="cardtype != null" >
+        CardType,
+      </if>
+      <if test="groupid != null" >
+        GroupID,
+      </if>
+      <if test="actiontypeid != null" >
+        ActionTypeID,
+      </if>
+      <if test="actionresultid != null" >
+        ActionResultID,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="terminalmac != null" >
+        #{terminalmac,jdbcType=CHAR},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="cardserial != null" >
+        #{cardserial,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="syntime != null" >
+        #{syntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unknowncarduser != null" >
+        #{unknowncarduser,jdbcType=VARCHAR},
+      </if>
+      <if test="unknowncardno != null" >
+        #{unknowncardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=SMALLINT},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="actiontypeid != null" >
+        #{actiontypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="actionresultid != null" >
+        #{actionresultid,jdbcType=SMALLINT},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="replaceSelective" parameterType="com.slark.pengder.mybatis.model.Tusereventofterminal" >
+    replace into tusereventofterminal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="terminalmac != null" >
+        TerminalMAC,
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID,
+      </if>
+      <if test="cardserial != null" >
+        CardSerial,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="syntime != null" >
+        SynTime,
+      </if>
+      <if test="unknowncarduser != null" >
+        UnknownCardUser,
+      </if>
+      <if test="unknowncardno != null" >
+        UnknownCardNo,
+      </if>
+      <if test="cardtype != null" >
+        CardType,
+      </if>
+      <if test="groupid != null" >
+        GroupID,
+      </if>
+      <if test="actiontypeid != null" >
+        ActionTypeID,
+      </if>
+      <if test="actionresultid != null" >
+        ActionResultID,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="terminalmac != null" >
+        #{terminalmac,jdbcType=CHAR},
+      </if>
+      <if test="instrumentid != null" >
+        #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="cardserial != null" >
+        #{cardserial,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="syntime != null" >
+        #{syntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unknowncarduser != null" >
+        #{unknowncarduser,jdbcType=VARCHAR},
+      </if>
+      <if test="unknowncardno != null" >
+        #{unknowncardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=SMALLINT},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="actiontypeid != null" >
+        #{actiontypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="actionresultid != null" >
+        #{actionresultid,jdbcType=SMALLINT},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TusereventofterminalExample" resultType="java.lang.Integer" >
+    select count(*) from tusereventofterminal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tusereventofterminal" >
+    update tusereventofterminal
+    <set >
+      <if test="terminalmac != null" >
+        TerminalMAC = #{terminalmac,jdbcType=CHAR},
+      </if>
+      <if test="instrumentid != null" >
+        InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      </if>
+      <if test="cardserial != null" >
+        CardSerial = #{cardserial,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="syntime != null" >
+        SynTime = #{syntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unknowncarduser != null" >
+        UnknownCardUser = #{unknowncarduser,jdbcType=VARCHAR},
+      </if>
+      <if test="unknowncardno != null" >
+        UnknownCardNo = #{unknowncardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        CardType = #{cardtype,jdbcType=SMALLINT},
+      </if>
+      <if test="groupid != null" >
+        GroupID = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="actiontypeid != null" >
+        ActionTypeID = #{actiontypeid,jdbcType=SMALLINT},
+      </if>
+      <if test="actionresultid != null" >
+        ActionResultID = #{actionresultid,jdbcType=SMALLINT},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        CreatedTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tusereventofterminal" >
+    update tusereventofterminal
+    set TerminalMAC = #{terminalmac,jdbcType=CHAR},
+      InstrumentID = #{instrumentid,jdbcType=INTEGER},
+      CardSerial = #{cardserial,jdbcType=INTEGER},
+      UserID = #{userid,jdbcType=INTEGER},
+      SynTime = #{syntime,jdbcType=TIMESTAMP},
+      UnknownCardUser = #{unknowncarduser,jdbcType=VARCHAR},
+      UnknownCardNo = #{unknowncardno,jdbcType=VARCHAR},
+      CardType = #{cardtype,jdbcType=SMALLINT},
+      GroupID = #{groupid,jdbcType=INTEGER},
+      ActionTypeID = #{actiontypeid,jdbcType=SMALLINT},
+      ActionResultID = #{actionresultid,jdbcType=SMALLINT},
+      Comment = #{comment,jdbcType=VARCHAR},
+      CreatedTime = #{createdtime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

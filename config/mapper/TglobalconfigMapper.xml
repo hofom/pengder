@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slark.pengder.mybatis.dao.TglobalconfigMapper" >
+  <resultMap id="BaseResultMap" type="com.slark.pengder.mybatis.model.Tglobalconfig" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="Language" property="language" jdbcType="SMALLINT" />
+    <result column="PasswordTrial" property="passwordtrial" jdbcType="TINYINT" />
+    <result column="LogoutTimeSpan" property="logouttimespan" jdbcType="SMALLINT" />
+    <result column="TemporaryCardTimeSpan" property="temporarycardtimespan" jdbcType="SMALLINT" />
+    <result column="AttachmentDirectory" property="attachmentdirectory" jdbcType="VARCHAR" />
+    <result column="TimeInPunish" property="timeinpunish" jdbcType="INTEGER" />
+    <result column="Invoice" property="invoice" jdbcType="SMALLINT" />
+    <result column="PunishTimeOfBlack" property="punishtimeofblack" jdbcType="INTEGER" />
+    <result column="AddrOfTimeServer" property="addroftimeserver" jdbcType="VARCHAR" />
+    <result column="BlacklistRate" property="blacklistrate" jdbcType="SMALLINT" />
+    <result column="VipAccount" property="vipaccount" jdbcType="TINYINT" />
+    <result column="GeneralAccount" property="generalaccount" jdbcType="TINYINT" />
+    <result column="UnauthorityAccount" property="unauthorityaccount" jdbcType="TINYINT" />
+    <result column="AccountAlert" property="accountalert" jdbcType="DECIMAL" />
+    <result column="AccountRound" property="accountround" jdbcType="DECIMAL" />
+    <result column="VipStandard" property="vipstandard" jdbcType="DECIMAL" />
+    <result column="VipReward" property="vipreward" jdbcType="DECIMAL" />
+    <result column="DeductCreditMiss" property="deductcreditmiss" jdbcType="SMALLINT" />
+    <result column="VipFloorCredit" property="vipfloorcredit" jdbcType="SMALLINT" />
+    <result column="CommonFloorCredit" property="commonfloorcredit" jdbcType="SMALLINT" />
+    <result column="EndPunishCredit" property="endpunishcredit" jdbcType="SMALLINT" />
+    <result column="AnnualGainCredit" property="annualgaincredit" jdbcType="SMALLINT" />
+    <result column="WorkTime" property="worktime" jdbcType="CHAR" />
+    <result column="TimeLowerLimit" property="timelowerlimit" jdbcType="SMALLINT" />
+    <result column="OccupyDeductCredit" property="occupydeductcredit" jdbcType="SMALLINT" />
+    <result column="TrainingValidTime" property="trainingvalidtime" jdbcType="SMALLINT" />
+    <result column="LevelOfCentre" property="levelofcentre" jdbcType="SMALLINT" />
+    <result column="ModifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
+    <result column="ModifiedID" property="modifiedid" jdbcType="INTEGER" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="ReceiveSynTick" property="receivesyntick" jdbcType="INTEGER" />
+    <result column="ApplySynTick" property="applysyntick" jdbcType="INTEGER" />
+    <result column="TimeLowerCredit" property="timelowercredit" jdbcType="SMALLINT" />
+    <result column="InitCredit" property="initcredit" jdbcType="SMALLINT" />
+    <result column="BillingFormula" property="billingformula" jdbcType="VARCHAR" />
+    <result column="SingleReward" property="singlereward" jdbcType="SMALLINT" />
+    <result column="SingleDeduct" property="singlededuct" jdbcType="SMALLINT" />
+    <result column="UpperCredit" property="uppercredit" jdbcType="SMALLINT" />
+    <result column="DeductCreditBookingCancel" property="deductcreditbookingcancel" jdbcType="SMALLINT" />
+    <result column="ActiveTimeofNewCredit" property="activetimeofnewcredit" jdbcType="INTEGER" />
+    <result column="MajorOrganizationID" property="majororganizationid" jdbcType="INTEGER" />
+    <result column="OtherOrganizationID" property="otherorganizationid" jdbcType="INTEGER" />
+    <result column="ExpGainCredit" property="expgaincredit" jdbcType="SMALLINT" />
+    <result column="ClientSoftwareUpdateURL" property="clientsoftwareupdateurl" jdbcType="VARCHAR" />
+    <result column="ClientSoftwareAutoUpdate" property="clientsoftwareautoupdate" jdbcType="TINYINT" />
+    <result column="verifydiff" property="verifydiff" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, Language, PasswordTrial, LogoutTimeSpan, TemporaryCardTimeSpan, AttachmentDirectory, 
+    TimeInPunish, Invoice, PunishTimeOfBlack, AddrOfTimeServer, BlacklistRate, VipAccount, 
+    GeneralAccount, UnauthorityAccount, AccountAlert, AccountRound, VipStandard, VipReward, 
+    DeductCreditMiss, VipFloorCredit, CommonFloorCredit, EndPunishCredit, AnnualGainCredit, 
+    WorkTime, TimeLowerLimit, OccupyDeductCredit, TrainingValidTime, LevelOfCentre,  
+    ModifiedID, StartTime, Comment, ReceiveSynTick, ApplySynTick, TimeLowerCredit, InitCredit, 
+    BillingFormula, SingleReward, SingleDeduct, UpperCredit, DeductCreditBookingCancel, 
+    ActiveTimeofNewCredit, MajorOrganizationID, OtherOrganizationID, ExpGainCredit, ClientSoftwareUpdateURL, 
+    ClientSoftwareAutoUpdate, verifydiff
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.slark.pengder.mybatis.model.TglobalconfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tglobalconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tglobalconfig
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tglobalconfig
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slark.pengder.mybatis.model.Tglobalconfig" >
+    insert into tglobalconfig (ID, Language, PasswordTrial, 
+      LogoutTimeSpan, TemporaryCardTimeSpan, 
+      AttachmentDirectory, TimeInPunish, Invoice, 
+      PunishTimeOfBlack, AddrOfTimeServer, BlacklistRate, 
+      VipAccount, GeneralAccount, UnauthorityAccount, 
+      AccountAlert, AccountRound, VipStandard, 
+      VipReward, DeductCreditMiss, VipFloorCredit, 
+      CommonFloorCredit, EndPunishCredit, AnnualGainCredit, 
+      WorkTime, TimeLowerLimit, OccupyDeductCredit, 
+      TrainingValidTime, LevelOfCentre, ModifiedTime, 
+      ModifiedID, StartTime, Comment, 
+      ReceiveSynTick, ApplySynTick, TimeLowerCredit, 
+      InitCredit, BillingFormula, SingleReward, 
+      SingleDeduct, UpperCredit, DeductCreditBookingCancel, 
+      ActiveTimeofNewCredit, MajorOrganizationID, 
+      OtherOrganizationID, ExpGainCredit, ClientSoftwareUpdateURL, 
+      ClientSoftwareAutoUpdate, verifydiff)
+    values (#{id,jdbcType=INTEGER}, #{language,jdbcType=SMALLINT}, #{passwordtrial,jdbcType=TINYINT}, 
+      #{logouttimespan,jdbcType=SMALLINT}, #{temporarycardtimespan,jdbcType=SMALLINT}, 
+      #{attachmentdirectory,jdbcType=VARCHAR}, #{timeinpunish,jdbcType=INTEGER}, #{invoice,jdbcType=SMALLINT}, 
+      #{punishtimeofblack,jdbcType=INTEGER}, #{addroftimeserver,jdbcType=VARCHAR}, #{blacklistrate,jdbcType=SMALLINT}, 
+      #{vipaccount,jdbcType=TINYINT}, #{generalaccount,jdbcType=TINYINT}, #{unauthorityaccount,jdbcType=TINYINT}, 
+      #{accountalert,jdbcType=DECIMAL}, #{accountround,jdbcType=DECIMAL}, #{vipstandard,jdbcType=DECIMAL}, 
+      #{vipreward,jdbcType=DECIMAL}, #{deductcreditmiss,jdbcType=SMALLINT}, #{vipfloorcredit,jdbcType=SMALLINT}, 
+      #{commonfloorcredit,jdbcType=SMALLINT}, #{endpunishcredit,jdbcType=SMALLINT}, #{annualgaincredit,jdbcType=SMALLINT}, 
+      #{worktime,jdbcType=CHAR}, #{timelowerlimit,jdbcType=SMALLINT}, #{occupydeductcredit,jdbcType=SMALLINT}, 
+      #{trainingvalidtime,jdbcType=SMALLINT}, #{levelofcentre,jdbcType=SMALLINT}, #{modifiedtime,jdbcType=TIMESTAMP}, 
+      #{modifiedid,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP}, #{comment,jdbcType=VARCHAR}, 
+      #{receivesyntick,jdbcType=INTEGER}, #{applysyntick,jdbcType=INTEGER}, #{timelowercredit,jdbcType=SMALLINT}, 
+      #{initcredit,jdbcType=SMALLINT}, #{billingformula,jdbcType=VARCHAR}, #{singlereward,jdbcType=SMALLINT}, 
+      #{singlededuct,jdbcType=SMALLINT}, #{uppercredit,jdbcType=SMALLINT}, #{deductcreditbookingcancel,jdbcType=SMALLINT}, 
+      #{activetimeofnewcredit,jdbcType=INTEGER}, #{majororganizationid,jdbcType=INTEGER}, 
+      #{otherorganizationid,jdbcType=INTEGER}, #{expgaincredit,jdbcType=SMALLINT}, #{clientsoftwareupdateurl,jdbcType=VARCHAR}, 
+      #{clientsoftwareautoupdate,jdbcType=TINYINT}, #{verifydiff,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slark.pengder.mybatis.model.Tglobalconfig" >
+    insert into tglobalconfig
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="language != null" >
+        Language,
+      </if>
+      <if test="passwordtrial != null" >
+        PasswordTrial,
+      </if>
+      <if test="logouttimespan != null" >
+        LogoutTimeSpan,
+      </if>
+      <if test="temporarycardtimespan != null" >
+        TemporaryCardTimeSpan,
+      </if>
+      <if test="attachmentdirectory != null" >
+        AttachmentDirectory,
+      </if>
+      <if test="timeinpunish != null" >
+        TimeInPunish,
+      </if>
+      <if test="invoice != null" >
+        Invoice,
+      </if>
+      <if test="punishtimeofblack != null" >
+        PunishTimeOfBlack,
+      </if>
+      <if test="addroftimeserver != null" >
+        AddrOfTimeServer,
+      </if>
+      <if test="blacklistrate != null" >
+        BlacklistRate,
+      </if>
+      <if test="vipaccount != null" >
+        VipAccount,
+      </if>
+      <if test="generalaccount != null" >
+        GeneralAccount,
+      </if>
+      <if test="unauthorityaccount != null" >
+        UnauthorityAccount,
+      </if>
+      <if test="accountalert != null" >
+        AccountAlert,
+      </if>
+      <if test="accountround != null" >
+        AccountRound,
+      </if>
+      <if test="vipstandard != null" >
+        VipStandard,
+      </if>
+      <if test="vipreward != null" >
+        VipReward,
+      </if>
+      <if test="deductcreditmiss != null" >
+        DeductCreditMiss,
+      </if>
+      <if test="vipfloorcredit != null" >
+        VipFloorCredit,
+      </if>
+      <if test="commonfloorcredit != null" >
+        CommonFloorCredit,
+      </if>
+      <if test="endpunishcredit != null" >
+        EndPunishCredit,
+      </if>
+      <if test="annualgaincredit != null" >
+        AnnualGainCredit,
+      </if>
+      <if test="worktime != null" >
+        WorkTime,
+      </if>
+      <if test="timelowerlimit != null" >
+        TimeLowerLimit,
+      </if>
+      <if test="occupydeductcredit != null" >
+        OccupyDeductCredit,
+      </if>
+      <if test="trainingvalidtime != null" >
+        TrainingValidTime,
+      </if>
+      <if test="levelofcentre != null" >
+        LevelOfCentre,
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime,
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick,
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick,
+      </if>
+      <if test="timelowercredit != null" >
+        TimeLowerCredit,
+      </if>
+      <if test="initcredit != null" >
+        InitCredit,
+      </if>
+      <if test="billingformula != null" >
+        BillingFormula,
+      </if>
+      <if test="singlereward != null" >
+        SingleReward,
+      </if>
+      <if test="singlededuct != null" >
+        SingleDeduct,
+      </if>
+      <if test="uppercredit != null" >
+        UpperCredit,
+      </if>
+      <if test="deductcreditbookingcancel != null" >
+        DeductCreditBookingCancel,
+      </if>
+      <if test="activetimeofnewcredit != null" >
+        ActiveTimeofNewCredit,
+      </if>
+      <if test="majororganizationid != null" >
+        MajorOrganizationID,
+      </if>
+      <if test="otherorganizationid != null" >
+        OtherOrganizationID,
+      </if>
+      <if test="expgaincredit != null" >
+        ExpGainCredit,
+      </if>
+      <if test="clientsoftwareupdateurl != null" >
+        ClientSoftwareUpdateURL,
+      </if>
+      <if test="clientsoftwareautoupdate != null" >
+        ClientSoftwareAutoUpdate,
+      </if>
+      <if test="verifydiff != null" >
+        verifydiff,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=SMALLINT},
+      </if>
+      <if test="passwordtrial != null" >
+        #{passwordtrial,jdbcType=TINYINT},
+      </if>
+      <if test="logouttimespan != null" >
+        #{logouttimespan,jdbcType=SMALLINT},
+      </if>
+      <if test="temporarycardtimespan != null" >
+        #{temporarycardtimespan,jdbcType=SMALLINT},
+      </if>
+      <if test="attachmentdirectory != null" >
+        #{attachmentdirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="timeinpunish != null" >
+        #{timeinpunish,jdbcType=INTEGER},
+      </if>
+      <if test="invoice != null" >
+        #{invoice,jdbcType=SMALLINT},
+      </if>
+      <if test="punishtimeofblack != null" >
+        #{punishtimeofblack,jdbcType=INTEGER},
+      </if>
+      <if test="addroftimeserver != null" >
+        #{addroftimeserver,jdbcType=VARCHAR},
+      </if>
+      <if test="blacklistrate != null" >
+        #{blacklistrate,jdbcType=SMALLINT},
+      </if>
+      <if test="vipaccount != null" >
+        #{vipaccount,jdbcType=TINYINT},
+      </if>
+      <if test="generalaccount != null" >
+        #{generalaccount,jdbcType=TINYINT},
+      </if>
+      <if test="unauthorityaccount != null" >
+        #{unauthorityaccount,jdbcType=TINYINT},
+      </if>
+      <if test="accountalert != null" >
+        #{accountalert,jdbcType=DECIMAL},
+      </if>
+      <if test="accountround != null" >
+        #{accountround,jdbcType=DECIMAL},
+      </if>
+      <if test="vipstandard != null" >
+        #{vipstandard,jdbcType=DECIMAL},
+      </if>
+      <if test="vipreward != null" >
+        #{vipreward,jdbcType=DECIMAL},
+      </if>
+      <if test="deductcreditmiss != null" >
+        #{deductcreditmiss,jdbcType=SMALLINT},
+      </if>
+      <if test="vipfloorcredit != null" >
+        #{vipfloorcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="commonfloorcredit != null" >
+        #{commonfloorcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="endpunishcredit != null" >
+        #{endpunishcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="annualgaincredit != null" >
+        #{annualgaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="worktime != null" >
+        #{worktime,jdbcType=CHAR},
+      </if>
+      <if test="timelowerlimit != null" >
+        #{timelowerlimit,jdbcType=SMALLINT},
+      </if>
+      <if test="occupydeductcredit != null" >
+        #{occupydeductcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="trainingvalidtime != null" >
+        #{trainingvalidtime,jdbcType=SMALLINT},
+      </if>
+      <if test="levelofcentre != null" >
+        #{levelofcentre,jdbcType=SMALLINT},
+      </if>
+      <if test="modifiedtime != null" >
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="receivesyntick != null" >
+        #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="applysyntick != null" >
+        #{applysyntick,jdbcType=INTEGER},
+      </if>
+      <if test="timelowercredit != null" >
+        #{timelowercredit,jdbcType=SMALLINT},
+      </if>
+      <if test="initcredit != null" >
+        #{initcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="billingformula != null" >
+        #{billingformula,jdbcType=VARCHAR},
+      </if>
+      <if test="singlereward != null" >
+        #{singlereward,jdbcType=SMALLINT},
+      </if>
+      <if test="singlededuct != null" >
+        #{singlededuct,jdbcType=SMALLINT},
+      </if>
+      <if test="uppercredit != null" >
+        #{uppercredit,jdbcType=SMALLINT},
+      </if>
+      <if test="deductcreditbookingcancel != null" >
+        #{deductcreditbookingcancel,jdbcType=SMALLINT},
+      </if>
+      <if test="activetimeofnewcredit != null" >
+        #{activetimeofnewcredit,jdbcType=INTEGER},
+      </if>
+      <if test="majororganizationid != null" >
+        #{majororganizationid,jdbcType=INTEGER},
+      </if>
+      <if test="otherorganizationid != null" >
+        #{otherorganizationid,jdbcType=INTEGER},
+      </if>
+      <if test="expgaincredit != null" >
+        #{expgaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="clientsoftwareupdateurl != null" >
+        #{clientsoftwareupdateurl,jdbcType=VARCHAR},
+      </if>
+      <if test="clientsoftwareautoupdate != null" >
+        #{clientsoftwareautoupdate,jdbcType=TINYINT},
+      </if>
+      <if test="verifydiff != null" >
+        #{verifydiff,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.slark.pengder.mybatis.model.TglobalconfigExample" resultType="java.lang.Integer" >
+    select count(*) from tglobalconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slark.pengder.mybatis.model.Tglobalconfig" >
+    update tglobalconfig
+    <set >
+      <if test="language != null" >
+        Language = #{language,jdbcType=SMALLINT},
+      </if>
+      <if test="passwordtrial != null" >
+        PasswordTrial = #{passwordtrial,jdbcType=TINYINT},
+      </if>
+      <if test="logouttimespan != null" >
+        LogoutTimeSpan = #{logouttimespan,jdbcType=SMALLINT},
+      </if>
+      <if test="temporarycardtimespan != null" >
+        TemporaryCardTimeSpan = #{temporarycardtimespan,jdbcType=SMALLINT},
+      </if>
+      <if test="attachmentdirectory != null" >
+        AttachmentDirectory = #{attachmentdirectory,jdbcType=VARCHAR},
+      </if>
+      <if test="timeinpunish != null" >
+        TimeInPunish = #{timeinpunish,jdbcType=INTEGER},
+      </if>
+      <if test="invoice != null" >
+        Invoice = #{invoice,jdbcType=SMALLINT},
+      </if>
+      <if test="punishtimeofblack != null" >
+        PunishTimeOfBlack = #{punishtimeofblack,jdbcType=INTEGER},
+      </if>
+      <if test="addroftimeserver != null" >
+        AddrOfTimeServer = #{addroftimeserver,jdbcType=VARCHAR},
+      </if>
+      <if test="blacklistrate != null" >
+        BlacklistRate = #{blacklistrate,jdbcType=SMALLINT},
+      </if>
+      <if test="vipaccount != null" >
+        VipAccount = #{vipaccount,jdbcType=TINYINT},
+      </if>
+      <if test="generalaccount != null" >
+        GeneralAccount = #{generalaccount,jdbcType=TINYINT},
+      </if>
+      <if test="unauthorityaccount != null" >
+        UnauthorityAccount = #{unauthorityaccount,jdbcType=TINYINT},
+      </if>
+      <if test="accountalert != null" >
+        AccountAlert = #{accountalert,jdbcType=DECIMAL},
+      </if>
+      <if test="accountround != null" >
+        AccountRound = #{accountround,jdbcType=DECIMAL},
+      </if>
+      <if test="vipstandard != null" >
+        VipStandard = #{vipstandard,jdbcType=DECIMAL},
+      </if>
+      <if test="vipreward != null" >
+        VipReward = #{vipreward,jdbcType=DECIMAL},
+      </if>
+      <if test="deductcreditmiss != null" >
+        DeductCreditMiss = #{deductcreditmiss,jdbcType=SMALLINT},
+      </if>
+      <if test="vipfloorcredit != null" >
+        VipFloorCredit = #{vipfloorcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="commonfloorcredit != null" >
+        CommonFloorCredit = #{commonfloorcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="endpunishcredit != null" >
+        EndPunishCredit = #{endpunishcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="annualgaincredit != null" >
+        AnnualGainCredit = #{annualgaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="worktime != null" >
+        WorkTime = #{worktime,jdbcType=CHAR},
+      </if>
+      <if test="timelowerlimit != null" >
+        TimeLowerLimit = #{timelowerlimit,jdbcType=SMALLINT},
+      </if>
+      <if test="occupydeductcredit != null" >
+        OccupyDeductCredit = #{occupydeductcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="trainingvalidtime != null" >
+        TrainingValidTime = #{trainingvalidtime,jdbcType=SMALLINT},
+      </if>
+      <if test="levelofcentre != null" >
+        LevelOfCentre = #{levelofcentre,jdbcType=SMALLINT},
+      </if>
+      <if test="modifiedtime != null" >
+        ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedid != null" >
+        ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="receivesyntick != null" >
+        ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      </if>
+      <if test="applysyntick != null" >
+        ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      </if>
+      <if test="timelowercredit != null" >
+        TimeLowerCredit = #{timelowercredit,jdbcType=SMALLINT},
+      </if>
+      <if test="initcredit != null" >
+        InitCredit = #{initcredit,jdbcType=SMALLINT},
+      </if>
+      <if test="billingformula != null" >
+        BillingFormula = #{billingformula,jdbcType=VARCHAR},
+      </if>
+      <if test="singlereward != null" >
+        SingleReward = #{singlereward,jdbcType=SMALLINT},
+      </if>
+      <if test="singlededuct != null" >
+        SingleDeduct = #{singlededuct,jdbcType=SMALLINT},
+      </if>
+      <if test="uppercredit != null" >
+        UpperCredit = #{uppercredit,jdbcType=SMALLINT},
+      </if>
+      <if test="deductcreditbookingcancel != null" >
+        DeductCreditBookingCancel = #{deductcreditbookingcancel,jdbcType=SMALLINT},
+      </if>
+      <if test="activetimeofnewcredit != null" >
+        ActiveTimeofNewCredit = #{activetimeofnewcredit,jdbcType=INTEGER},
+      </if>
+      <if test="majororganizationid != null" >
+        MajorOrganizationID = #{majororganizationid,jdbcType=INTEGER},
+      </if>
+      <if test="otherorganizationid != null" >
+        OtherOrganizationID = #{otherorganizationid,jdbcType=INTEGER},
+      </if>
+      <if test="expgaincredit != null" >
+        ExpGainCredit = #{expgaincredit,jdbcType=SMALLINT},
+      </if>
+      <if test="clientsoftwareupdateurl != null" >
+        ClientSoftwareUpdateURL = #{clientsoftwareupdateurl,jdbcType=VARCHAR},
+      </if>
+      <if test="clientsoftwareautoupdate != null" >
+        ClientSoftwareAutoUpdate = #{clientsoftwareautoupdate,jdbcType=TINYINT},
+      </if>
+      <if test="verifydiff != null" >
+        verifydiff = #{verifydiff,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slark.pengder.mybatis.model.Tglobalconfig" >
+    update tglobalconfig
+    set Language = #{language,jdbcType=SMALLINT},
+      PasswordTrial = #{passwordtrial,jdbcType=TINYINT},
+      LogoutTimeSpan = #{logouttimespan,jdbcType=SMALLINT},
+      TemporaryCardTimeSpan = #{temporarycardtimespan,jdbcType=SMALLINT},
+      AttachmentDirectory = #{attachmentdirectory,jdbcType=VARCHAR},
+      TimeInPunish = #{timeinpunish,jdbcType=INTEGER},
+      Invoice = #{invoice,jdbcType=SMALLINT},
+      PunishTimeOfBlack = #{punishtimeofblack,jdbcType=INTEGER},
+      AddrOfTimeServer = #{addroftimeserver,jdbcType=VARCHAR},
+      BlacklistRate = #{blacklistrate,jdbcType=SMALLINT},
+      VipAccount = #{vipaccount,jdbcType=TINYINT},
+      GeneralAccount = #{generalaccount,jdbcType=TINYINT},
+      UnauthorityAccount = #{unauthorityaccount,jdbcType=TINYINT},
+      AccountAlert = #{accountalert,jdbcType=DECIMAL},
+      AccountRound = #{accountround,jdbcType=DECIMAL},
+      VipStandard = #{vipstandard,jdbcType=DECIMAL},
+      VipReward = #{vipreward,jdbcType=DECIMAL},
+      DeductCreditMiss = #{deductcreditmiss,jdbcType=SMALLINT},
+      VipFloorCredit = #{vipfloorcredit,jdbcType=SMALLINT},
+      CommonFloorCredit = #{commonfloorcredit,jdbcType=SMALLINT},
+      EndPunishCredit = #{endpunishcredit,jdbcType=SMALLINT},
+      AnnualGainCredit = #{annualgaincredit,jdbcType=SMALLINT},
+      WorkTime = #{worktime,jdbcType=CHAR},
+      TimeLowerLimit = #{timelowerlimit,jdbcType=SMALLINT},
+      OccupyDeductCredit = #{occupydeductcredit,jdbcType=SMALLINT},
+      TrainingValidTime = #{trainingvalidtime,jdbcType=SMALLINT},
+      LevelOfCentre = #{levelofcentre,jdbcType=SMALLINT},
+      ModifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      ModifiedID = #{modifiedid,jdbcType=INTEGER},
+      StartTime = #{starttime,jdbcType=TIMESTAMP},
+      Comment = #{comment,jdbcType=VARCHAR},
+      ReceiveSynTick = #{receivesyntick,jdbcType=INTEGER},
+      ApplySynTick = #{applysyntick,jdbcType=INTEGER},
+      TimeLowerCredit = #{timelowercredit,jdbcType=SMALLINT},
+      InitCredit = #{initcredit,jdbcType=SMALLINT},
+      BillingFormula = #{billingformula,jdbcType=VARCHAR},
+      SingleReward = #{singlereward,jdbcType=SMALLINT},
+      SingleDeduct = #{singlededuct,jdbcType=SMALLINT},
+      UpperCredit = #{uppercredit,jdbcType=SMALLINT},
+      DeductCreditBookingCancel = #{deductcreditbookingcancel,jdbcType=SMALLINT},
+      ActiveTimeofNewCredit = #{activetimeofnewcredit,jdbcType=INTEGER},
+      MajorOrganizationID = #{majororganizationid,jdbcType=INTEGER},
+      OtherOrganizationID = #{otherorganizationid,jdbcType=INTEGER},
+      ExpGainCredit = #{expgaincredit,jdbcType=SMALLINT},
+      ClientSoftwareUpdateURL = #{clientsoftwareupdateurl,jdbcType=VARCHAR},
+      ClientSoftwareAutoUpdate = #{clientsoftwareautoupdate,jdbcType=TINYINT},
+      verifydiff = #{verifydiff,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
